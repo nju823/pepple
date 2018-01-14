@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ts.mapper.ExamMapper">
+    <resultMap id="examResultMap" type="Exam">
+        <id property="id" column="id" />
+        <result property="questionNum" column="question_num" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="courseId" column="course_id"/>
+        <result property="teacherId" column="teacher_id"/>
+    </resultMap>
+
+    <insert id="addExam" useGeneratedKeys="true" parameterType="com.ts.model.Exam">
+        insert into exam (question_num,score,start_time,end_time,course_id,teacher_id)
+        values(#{questionNum},#{score},#{startTime},#{endTime},#{courseId},#{teacherId})
+    </insert>
+
+</mapper>

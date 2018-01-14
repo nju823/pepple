@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ts.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="User">
+        <id property="id" column="id" />
+        <result property="schoolId" column="school_id"/>
+        <result property="isTeacher" column="is_teacher"/>
+    </resultMap>
+
+
+    <!-- 增加一个User -->
+    <insert id="addUser" parameterType="User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into user(name,password,school_id,is_teacher,email
+        <if test="clazz!=null">,clazz</if>
+        <if test="grade!=null">,grade</if>
+        )
+        values(#{name},#{password},#{schoolId},#{isTeacher},#{email}
+        <if test="clazz!=null">,#{clazz}</if>
+        <if test="grade!=null">,#{grade}</if>)
+     </insert>
+
+    <update id="updateToken">
+        update user set token=#{token} where email=#{email}
+    </update>
+
+    <update id="activeUser" parameterType="String">
+        update user set active=1 where email=#{email}
+    </update>
+
+    <select id="getUserByEmail" parameterType="String" resultMap="userResultMap">
+      select * from user where email=#{email}
+    </select>
+
+    <select id="getUserByStudentId" parameterType="String" resultMap="userResultMap">
+        SELECT * FROM user where school_id=#{schoolId}
+    </select>
+
+
+</mapper>
