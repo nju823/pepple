@@ -11,10 +11,10 @@
 
 
     <!-- 注解扫描包 -->
-    <context:component-scan base-package="com.ts.mapper" />
-    <context:component-scan base-package="com.ts.controller" />
-    <context:component-scan base-package="com.ts.service" />
-    <context:component-scan base-package="com.ts.util" />
+    <context:component-scan base-package="nju.edu.cn.pepple.mapper" />
+    <context:component-scan base-package="nju.edu.cn.pepple.controller" />
+    <context:component-scan base-package="nju.edu.cn.pepple.service" />
+    <context:component-scan base-package="nju.edu.cn.pepple.util" />
     <!-- 开启注解 -->
     <mvc:annotation-driven />
 
@@ -37,5 +37,5 @@
     </bean>
 
     <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>
