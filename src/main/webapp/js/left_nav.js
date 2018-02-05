@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+
+
     $(document).on("click",".parent",function(){
         if($(this).hasClass("parent-open")){
             $(this).removeClass("parent-open");

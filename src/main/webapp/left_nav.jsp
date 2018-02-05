@@ -71,11 +71,7 @@
 </body>
 
 <script type="text/javascript">
-    var screenHeight=document.documentElement.clientHeight;
-    var screenWidth=document.documentElement.clientWidth;
-    var body=document.body;
-    body.style.width=screenWidth+"px";
-    body.style.height=screenHeight+"px";
+
 </script>
 
 </html>

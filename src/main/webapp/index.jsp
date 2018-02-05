@@ -6,11 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
+    <link href="css/common.css" rel="stylesheet"/>
     <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/left_nav.js"></script>
+    <script src="js/jquery.datetimepicker.full.js"></script>
+    <script src="js/realtimeLogList.js"></script>
     <title>登录</title>
 </head>
 <body>
