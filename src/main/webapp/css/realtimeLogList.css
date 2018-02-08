@@ -43,3 +43,12 @@
     right: 15px;
     bottom: 15px;
 }
+
+.detailLogContainer{
+    width: 100%;
+}
+
+.interfaceNode{
+    display: inline-block;
+    margin-left: 20px;
+}
