@@ -13,9 +13,9 @@
     <!-- 1. 数据源 : DriverManagerDataSource -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://120.79.31.163:3306/exam_ol?characterEncoding=UTF-8" />
-        <property name="username" value="exam_ol" />
-        <property name="password" value="exam_ol666" />
+        <property name="url" value="jdbc:mysql://rm-wz991a6b04vm5v4q4zo.mysql.rds.aliyuncs.com:3306/pepple?characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="Pan12345" />
     </bean>
 
     <!--
@@ -30,7 +30,7 @@
         <!-- 扫描entity包 使用别名 -->
         <property name="typeAliasesPackage" value="nju.edu.cn.pepple.model" />
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
-        <!--<property name="mapperLocations" value="classpath:nju/edu/cn/pepple/mapper/*.xml" />-->
+        <property name="mapperLocations" value="classpath:nju/edu/cn/pepple/mapper/*.xml" />
     </bean>
 
     <!--
@@ -39,7 +39,7 @@
         basePackage:指定sql映射文件/接口所在的包（自动扫描）
     -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ts.mapper"></property>
+        <property name="basePackage" value="nju.edu.cn.pepple.mapper"></property>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
 

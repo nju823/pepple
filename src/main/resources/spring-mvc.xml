@@ -10,22 +10,18 @@
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 
-    <!-- 注解扫描包
     <context:component-scan base-package="nju.edu.cn.pepple.mapper" />
     <context:component-scan base-package="nju.edu.cn.pepple.controller" />
     <context:component-scan base-package="nju.edu.cn.pepple.service" />
     <context:component-scan base-package="nju.edu.cn.pepple.util" />
-    -->
     <!-- 开启注解 -->
     <mvc:annotation-driven />
 
-    <!--
-        配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.0.xsd
+    <!--配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.0.xsd-->
 
-    <mvc:resources mapping="/img/**" location="/WEB-INF/img/" />
-    <mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
-    <mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
-    <mvc:resources mapping="/html/**" location="/html/" />-->
+    <mvc:resources mapping="/img/**" location="/img/" />
+    <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
 
 
 
