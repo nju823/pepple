@@ -7,18 +7,18 @@ $(document).ready(function() {
 
 function loadLog() {
     logInfo = [
-        {"content":"\u0000","currentMillis":1516798086353,"parentSpanId":"-1","serviceName":"exam.student.{param}","serviceUrl":"http://izwz9bb7xjnbywqhq9l3f7z:9086/student/141250888","spanId":"6361912280778539011","target":"exam","traceId":"6361912280744984579","type":5},
-        {"content":"{\"studentId\":\"141250888\"}","currentMillis":1516798086354,"parentSpanId":"-1","serviceName":"exam.ExamStudentMapper.getExams","serviceUrl":"exam.ExamStudentMapper.getExams","spanId":"6361912280778539011","traceId":"6361912280744984579","type":3},
-        {"currentMillis":1517921954183,"parentSpanId":"-1","serviceName":"exam.paper.{param}","serviceUrl":"http://localhost:9086/paper/19","spanId":"6366626123794612227","target":"exam","traceId":"6366626123614257155","type":1},
-        {"currentMillis":1517921954225,"parentSpanId":"6366626123794612227","serviceName":"exam.PaperMapper.getPaper","source":"exam","spanId":"6366626123962384387","target":"exam_db","traceId":"6366626123614257155","type":3},
-        {"currentMillis":1517921954334,"parentSpanId":"6366626123794612227","serviceName":"exam.PaperMapper.getPaper","source":"exam","spanId":"6366626123962384387","target":"exam_db","traceId":"6366626123614257155","type":4},
-        {"currentMillis":1517921954381,"parentSpanId":"6366626123794612227","serviceName":"exam.QuestionMapper.getQuestionByPaper","source":"exam","spanId":"6366626124599918595","target":"exam_db","traceId":"6366626123614257155","type":3},
-        {"currentMillis":1517921954435,"parentSpanId":"6366626123794612227","serviceName":"exam.QuestionMapper.getQuestionByPaper","source":"exam","spanId":"6366626124599918595","target":"exam_db","traceId":"6366626123614257155","type":4},
-        {"currentMillis":1517921954475,"parentSpanId":"6366626124599918595","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125023543299","target":"exam_db","traceId":"6366626123614257155","type":3},
-        {"currentMillis":1517921954526,"parentSpanId":"6366626124599918595","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125023543299","target":"exam_db","traceId":"6366626123614257155","type":4},
-        {"currentMillis":1517921954563,"parentSpanId":"6366626123794612227","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125392642051","target":"exam_db","traceId":"6366626123614257155","type":3},
-        {"currentMillis":1517921954604,"parentSpanId":"6366626123794612227","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125392642051","target":"exam_db","traceId":"6366626123614257155","type":4},
-        {"currentMillis":1517921954624,"parentSpanId":"-1","spanId":"6366626123794612227","traceId":"6366626123614257155","type":2}
+        {"content":"\u0000","currentMillis":1516798086353,"parentSpanId":"-1","serviceName":"exam.student.{param}","serviceUrl":"http://izwz9bb7xjnbywqhq9l3f7z:9086/student/141250888","spanId":"6361912280778539011","target":"exam","traceId":"6361912280744984579","type":5,time:100},
+        {"content":"{\"studentId\":\"141250888\"}","currentMillis":1516798086354,"parentSpanId":"-1","serviceName":"exam.ExamStudentMapper.getExams","serviceUrl":"exam.ExamStudentMapper.getExams","spanId":"6361912280778539011","traceId":"6361912280744984579","type":3,time:60},
+        {"currentMillis":1517921954183,"parentSpanId":"-1","serviceName":"exam.paper.{param}","serviceUrl":"http://localhost:9086/paper/19","spanId":"6366626123794612227","target":"exam","traceId":"6366626123614257155","type":1,time:3.5},
+        {"currentMillis":1517921954225,"parentSpanId":"6366626123794612227","serviceName":"exam.PaperMapper.getPaper","source":"exam","spanId":"6366626123962384387","target":"exam_db","traceId":"6366626123614257155","type":3,time:10.65},
+        {"currentMillis":1517921954334,"parentSpanId":"6366626123794612227","serviceName":"exam.PaperMapper.getPaper","source":"exam","spanId":"6366626123962384387","target":"exam_db","traceId":"6366626123614257155","type":4,time:0.44},
+        {"currentMillis":1517921954381,"parentSpanId":"6366626123794612227","serviceName":"exam.QuestionMapper.getQuestionByPaper","source":"exam","spanId":"6366626124599918595","target":"exam_db","traceId":"6366626123614257155","type":3,time:0.08},
+        {"currentMillis":1517921954435,"parentSpanId":"6366626123794612227","serviceName":"exam.QuestionMapper.getQuestionByPaper","source":"exam","spanId":"6366626124599918595","target":"exam_db","traceId":"6366626123614257155","type":4,time:5},
+        {"currentMillis":1517921954475,"parentSpanId":"6366626124599918595","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125023543299","target":"exam_db","traceId":"6366626123614257155","type":3,time:3.33},
+        {"currentMillis":1517921954526,"parentSpanId":"6366626124599918595","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125023543299","target":"exam_db","traceId":"6366626123614257155","type":4,time:1.45},
+        {"currentMillis":1517921954563,"parentSpanId":"6366626123794612227","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125392642051","target":"exam_db","traceId":"6366626123614257155","type":3,time:0.88},
+        {"currentMillis":1517921954604,"parentSpanId":"6366626123794612227","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125392642051","target":"exam_db","traceId":"6366626123614257155","type":4,time:1},
+        {"currentMillis":1517921954624,"parentSpanId":"-1","spanId":"6366626123794612227","traceId":"6366626123614257155","type":2,time:2}
         ];
 
     for(var i =0;i<logInfo.length;i++) {
@@ -83,9 +83,19 @@ function addNode(detailDivId,log,indent){
     }
     nameStr+=log.serviceName;
     $("#"+detailDivId).append("<br><div class='interfaceNode'>"+nameStr+"</div>");
+    $("#"+detailDivId).append("<div class='timeNode' style='width: "+computeWidthFromTime(log.time)+";'>"+log.time+"s</div>");
     for(var i =0;i<logInfo.length;i++){
         if(logInfo[i].parentSpanId === log.spanId){
             addNode(detailDivId,logInfo[i],indent+1);
         }
     }
+}
+
+function computeWidthFromTime(time) {
+    if(time>30)
+        return "800px";
+    else if(time<1)
+        return "40px";
+    else
+        return (time/30*700+40)+"px";
 }

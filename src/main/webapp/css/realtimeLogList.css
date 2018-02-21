@@ -51,4 +51,12 @@
 .interfaceNode{
     display: inline-block;
     margin-left: 20px;
+    margin-top: 5px;
+}
+
+.timeNode{
+    display: inline-block;
+    margin-left: 20px;
+    color:#ffffff;
+    background-color: #60C060;
 }
