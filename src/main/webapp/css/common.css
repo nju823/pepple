@@ -33,9 +33,18 @@ p{
 	padding:5px;
 }
 
-.form-control{
+.input-400{
+	display: inline-block;
+	width: 400px;
+}
+
+.input-200{
 	display: inline-block;
 	width: 200px;
+}
+
+.form-control{
+	display: inline-block;
 }
 
 .title{
@@ -53,7 +62,6 @@ p{
 }
 
 .input_label{
-	width:100%;
 	display: inline-block;
 	margin-right: 20px;
 	margin-top:20px;
@@ -64,5 +72,16 @@ p{
 	display: inline-block;
 	margin-top:20px;
 }
+
+.checkbox_container{
+	margin-right: 20px;
+	display: inline-block;
+}
+
+.checkbox{
+	margin-right: 10px!important;
+	display: inline-block!important;
+}
+
 
 

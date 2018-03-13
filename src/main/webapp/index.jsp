@@ -12,6 +12,7 @@
     <script src="js/index.js"></script>
     <script src="js/left_nav.js"></script>
     <script src="js/jquery.datetimepicker.full.js"></script>
+    <script src="http://malsup.github.io/jquery.form.js"></script>
     <script src="js/realtimeLogList.js"></script>
     <title>登录</title>
 </head>

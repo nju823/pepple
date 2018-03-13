@@ -1,9 +1,25 @@
 var logInfo = [];
 
-$(document).ready(function() {
+var systemInfo = [];
+
+var typeInfo = [];
+
+function loadSearchInfo(){
+
+    systemInfo = ["A系统","老师服务系统","学生服务系统","考试服务系统"];
+
+    typeInfo = ["http请求","数据库请求","异常"];
+
     $('.some_class').datetimepicker();
 
-});
+    for(var i =0;i<systemInfo.length;i++){
+        $("#system_search_contianer").append("<div class='checkbox_container'><input class='checkbox' type='checkbox'>"+systemInfo[i]+"</div>");
+    }
+
+    for(var i =0;i<typeInfo.length;i++){
+        $("#type_search_contianer").append("<div class='checkbox_container'><input class='checkbox' type='checkbox'>"+typeInfo[i]+"</div>");
+    }
+}
 
 function loadLog() {
     logInfo = [
