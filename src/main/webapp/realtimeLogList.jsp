@@ -23,23 +23,15 @@
     </div>
     <div class="form_container">
         <label class="input_label" for="logServiceName">接口名称</label>
-        <input type="text" class="form-control input-400" id="logServiceName">
+        <input type="text" class="form-control input-400" id="logServiceName" placeholder="请输入关键词">
     </div>
     <div class="form_container">
         <label class="input_label" for="logServiceUrl">接口地址</label>
-        <input type="text" class="form-control input-400" id="logServiceUrl">
-    </div>
-    <div class="form_container">
-        <label class="input_label" for="logSpanId">span Id</label>
-        <input type="text" class="form-control input-400" id="logSpanId">
-    </div>
-    <div class="form_container">
-        <label class="input_label" for="logTraceId">trace Id</label>
-        <input type="text" class="form-control input-400" id="logTraceId">
+        <input type="text" class="form-control input-400" id="logServiceUrl" placeholder="请输入关键词">
     </div>
     <div class="form_container">
         <label class="input_label" for="logParam">包含参数</label>
-        <input type="text" class="form-control input-400" id="logParam">
+        <input type="text" class="form-control input-400" id="logParam" placeholder="请输入关键词">
     </div>
     <div class="form_container" id="system_search_contianer">
         <label class="input_label">参与系统</label>
@@ -49,6 +41,18 @@
     </div>
     <div class="form_container">
         <button type="button" id="search_btn" class="btn btn-primary">搜索</button>
+    </div>
+</div>
+<div class="content" id="id_search_container">
+    <div class="input-group form_container">
+        <input type="text" class="form-control input-400" id="logSpanId" placeholder="请输入traceId 或 spanId">
+        <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="exact_search_btn">Go!</button>
+      </span>
+    </div>
+    <div id="search_history">
+        <p class="explain_p">搜索历史：</p>
+        <p class="explain_p">121212121</p>
     </div>
 </div>
 <div id="logListContainer"></div>

@@ -4,81 +4,166 @@ var systemInfo = [];
 
 var typeInfo = [];
 
+//加载复选框内容，systems,types
 function loadSearchInfo(){
+    submitRequest("POST","getSystems","",false,
+        function(msg){
+            systemInfo = msg.content;
+    },
+        function(msg){
+            alert(msg.message);
+    });
 
-    systemInfo = ["A系统","老师服务系统","学生服务系统","考试服务系统"];
-
-    typeInfo = ["http请求","数据库请求","异常"];
+    typeInfo = ["正常日志","异常日志"];
 
     $('.some_class').datetimepicker();
 
     for(var i =0;i<systemInfo.length;i++){
-        $("#system_search_contianer").append("<div class='checkbox_container'><input class='checkbox' type='checkbox'>"+systemInfo[i]+"</div>");
+        $("#system_search_contianer").append("<div class='checkbox_container'><input class='checkbox' type='checkbox' id='system_"+i+"'>"+systemInfo[i]+"</div>");
     }
 
     for(var i =0;i<typeInfo.length;i++){
-        $("#type_search_contianer").append("<div class='checkbox_container'><input class='checkbox' type='checkbox'>"+typeInfo[i]+"</div>");
+        $("#type_search_contianer").append("<div class='checkbox_container'><input class='checkbox' type='checkbox' id='type_"+i+"'>"+typeInfo[i]+"</div>");
     }
 }
 
-function loadLog() {
-    logInfo = [
-        {"content":"\u0000","currentMillis":1516798086353,"parentSpanId":"-1","serviceName":"exam.student.{param}","serviceUrl":"http://izwz9bb7xjnbywqhq9l3f7z:9086/student/141250888","spanId":"6361912280778539011","target":"exam","traceId":"6361912280744984579","type":5,time:100},
-        {"content":"{\"studentId\":\"141250888\"}","currentMillis":1516798086354,"parentSpanId":"-1","serviceName":"exam.ExamStudentMapper.getExams","serviceUrl":"exam.ExamStudentMapper.getExams","spanId":"6361912280778539011","traceId":"6361912280744984579","type":3,time:60},
-        {"currentMillis":1517921954183,"parentSpanId":"-1","serviceName":"exam.paper.{param}","serviceUrl":"http://localhost:9086/paper/19","spanId":"6366626123794612227","target":"exam","traceId":"6366626123614257155","type":1,time:3.5},
-        {"currentMillis":1517921954225,"parentSpanId":"6366626123794612227","serviceName":"exam.PaperMapper.getPaper","source":"exam","spanId":"6366626123962384387","target":"exam_db","traceId":"6366626123614257155","type":3,time:10.65},
-        {"currentMillis":1517921954334,"parentSpanId":"6366626123794612227","serviceName":"exam.PaperMapper.getPaper","source":"exam","spanId":"6366626123962384387","target":"exam_db","traceId":"6366626123614257155","type":4,time:0.44},
-        {"currentMillis":1517921954381,"parentSpanId":"6366626123794612227","serviceName":"exam.QuestionMapper.getQuestionByPaper","source":"exam","spanId":"6366626124599918595","target":"exam_db","traceId":"6366626123614257155","type":3,time:0.08},
-        {"currentMillis":1517921954435,"parentSpanId":"6366626123794612227","serviceName":"exam.QuestionMapper.getQuestionByPaper","source":"exam","spanId":"6366626124599918595","target":"exam_db","traceId":"6366626123614257155","type":4,time:5},
-        {"currentMillis":1517921954475,"parentSpanId":"6366626124599918595","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125023543299","target":"exam_db","traceId":"6366626123614257155","type":3,time:3.33},
-        {"currentMillis":1517921954526,"parentSpanId":"6366626124599918595","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125023543299","target":"exam_db","traceId":"6366626123614257155","type":4,time:1.45},
-        {"currentMillis":1517921954563,"parentSpanId":"6366626123794612227","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125392642051","target":"exam_db","traceId":"6366626123614257155","type":3,time:0.88},
-        {"currentMillis":1517921954604,"parentSpanId":"6366626123794612227","serviceName":"exam.AnswerMapper.getAnswersByQuestion","source":"exam","spanId":"6366626125392642051","target":"exam_db","traceId":"6366626123614257155","type":4,time:1},
-        {"currentMillis":1517921954624,"parentSpanId":"-1","spanId":"6366626123794612227","traceId":"6366626123614257155","type":2,time:2}
-        ];
+//初始化搜索条件
+function initFilterInfo() {
+    //构造yyyy/mm/dd hh:mm 的日期
+    var date = new Date();
+    var seperator1 = "/";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    var hourNow = date.getHours();
+    $("#logStartTime").val(currentdate+" 00:00");
+    $("#logEndTime").val(currentdate+" "+hourNow+":00");
+    $("#logServiceName").val("");
+    $("#logServiceUrl").val("");
+    $("#logSpanId").val("");
+    $("#logTraceId").val("");
+    $("#logParam").val("");
 
-    for(var i =0;i<logInfo.length;i++) {
-        if (logInfo[i].parentSpanId === "-1") {
-            $("#logListContainer").append("<div class='content logCointainer'>" +
-                "<div class='typeContainer' style='background-color: " + getTypeColor(logInfo[i].type) + "'>" + getTypeContent(logInfo[i].type) + "</div>" +
-                "<div class='simpleLogInfo'><div class='logTimeContainer'>" + new Date(logInfo[i].currentMillis) +"</div>"
-                +"<div>"+"接口名称： "+logInfo[i].serviceName+"</div>"
-                +"<div>"+"接口地址： "+logInfo[i].serviceUrl+"</div>"
-                +"</div><div class='slideLogBtn closeLog' id='slide_"+i+"'><img src='img/down-icon.png'></div></div>");
+    for(var i =0;i<systemInfo.length;i++){
+        $("#system_"+i).attr("checked",true);
+    }
+
+    for(var i =0;i<typeInfo.length;i++){
+        $("#type_"+i).attr("checked",true);
+    }
+}
+
+//return filter
+function loadFilterInfo() {
+    var filter ={};
+    var systems = [];
+    var types = [];
+    filter.startTime = new Date($("#logStartTime").val()).getTime();
+    filter.endTime = new Date($("#logEndTime").val()).getTime();
+    filter.logServiceName = $("#logServiceName").val();
+    filter.logServiceUrl = $("#logServiceUrl").val();
+    filter.logParam = $("#logParam").val();
+
+    for(var i =0;i<systemInfo.length;i++){
+        if($("#system_"+i).attr("checked")){
+            systems.push(systemInfo[i]);
         }
     }
+    systems.push("");
+
+    for(var i =0;i<typeInfo.length;i++){
+        if(i==0){
+            types.push(1);
+            types.push(2);
+        }else if (i==1){
+            types.push(3);
+        }
+
+        // if($("#type_"+i).attr("checked")){
+        //     types.push(i+1);
+        // }
+    }
+
+    filter.systems = systems;
+    filter.types = types;
+    console.log(filter);
+    return filter;
+}
+
+function loadSearchHistory() {
+
+}
+
+//点击搜索loadLog()
+$(document).on("click","#search_btn",function () {
+    loadLog();
+});
+
+$(document).on("click","#exact_search_btn",function () {
+    //精确搜索
+    loadSearchHistory();
+});
+
+function loadLog() {
+    var filter = loadFilterInfo();
+    submitRequest("POST","getLog",filter,false,
+        function(msg){
+            logInfo = msg.content;
+        },
+        function(msg){
+            alert(msg.message);
+        });
+
+    $("#logListContainer").empty();
+    for(var i =0;i<logInfo.length;i++) {
+
+            $("#logListContainer").append("<div class='content logCointainer'>" +
+                "<div class='typeContainer' style='background-color: " + getTypeColor(logInfo[i].root.type) + "'>" + getTypeContent(logInfo[i].root.type) + "</div>" +
+                "<div class='simpleLogInfo'><div class='logTimeContainer'>" + new Date(logInfo[i].root.requestCurrentMillis) +"</div>"
+                +"<div>"+"接口名称： "+logInfo[i].root.serviceName+"</div>"
+                +"<div>"+"接口地址： "+logInfo[i].root.serviceUrl+"</div>"
+                +"</div><div class='slideLogBtn closeLog' id='slide_"+i+"'><img src='img/down-icon.png'></div></div>");
+        }
+
 }
 
 function getTypeColor(type){
     switch (type){
         case 1: return "rgb(100, 155, 244)";break;
-        case 2: return "rgb(100, 155, 244)";break;
-        case 3: return "rgb(25, 182, 152)";break;
-        case 4: return "rgb(25, 182, 152)";break;
-        case 5: return "rgb(221, 68, 68)";break;
+        //case 2: return "rgb(100, 155, 244)";break;
+        case 2: return "rgb(25, 182, 152)";break;
+        //case 4: return "rgb(25, 182, 152)";break;
+        case 3: return "rgb(221, 68, 68)";break;
     }
 }
 
 function getTypeContent(type){
     switch (type){
         case 1: return "http请求";break;
-        case 2: return "http响应";break;
-        case 3: return "数据库请求";break;
-        case 4: return "数据库响应";break;
-        case 5: return "异常";break;
+        //case 2: return "http响应";break;
+        case 2: return "数据库请求";break;
+        //case 4: return "数据库响应";break;
+        case 3: return "异常";break;
     }
 }
 
 $(document).on("click",".slideLogBtn",function (e) {
     var id = e.target.parentNode.id.split("_")[1];
-    var log = logInfo[id];
+    var log = logInfo[id].root;
     if($(e.target.parentNode).hasClass("closeLog")){        //点击展开
         $(e.target).attr("src","img/up-icon.png");
         $(e.target.parentNode).removeClass("closeLog");
         $(e.target.parentNode).addClass("openLog");
         $(e.target.parentNode.parentNode).after("<div class='detailLogContainer content' id='detail_"+id+"'><div class=''></div></div>");
         //生成树形结构
-       addNode("detail_"+id,log,0);
+       addNode(id,log,0);
     }else{
         $(e.target).attr("src","img/down-icon.png");
         $(e.target.parentNode).addClass("closeLog");
@@ -87,7 +172,8 @@ $(document).on("click",".slideLogBtn",function (e) {
     }
 });
 
-function addNode(detailDivId,log,indent){
+function addNode(id,log,indent){
+    var trace = logInfo[id];
     var nameStr="";
     for(var j=0;j<indent-1;j++){
         nameStr +="&nbsp&nbsp";
@@ -98,11 +184,11 @@ function addNode(detailDivId,log,indent){
         nameStr += "|__";
     }
     nameStr+=log.serviceName;
-    $("#"+detailDivId).append("<br><div class='interfaceNode'>"+nameStr+"</div>");
-    $("#"+detailDivId).append("<div class='timeNode' style='width: "+computeWidthFromTime(log.time)+";'>"+log.time+"s</div>");
-    for(var i =0;i<logInfo.length;i++){
-        if(logInfo[i].parentSpanId === log.spanId){
-            addNode(detailDivId,logInfo[i],indent+1);
+    $("#detail_"+id).append("<br><div class='interfaceNode'>"+nameStr+"</div>");
+    $("#detail_"+id).append("<div class='timeNode' style='width: "+computeWidthFromTime(log.time)+";'>"+log.time+"s</div>");
+    for(var i =0;i<trace.logs.length;i++){
+        if(trace.logs[i].parentSpanId === log.spanId){
+            addNode(id,trace.logs[i],indent+1);
         }
     }
 }

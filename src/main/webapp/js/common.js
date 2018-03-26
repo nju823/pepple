@@ -44,3 +44,13 @@ function validateInputNull(input){
 		return true;
 	}
 }
+
+//checkbox 点击事件
+$(document).on("click",".checkbox",function () {
+    if ($(this).attr("checked")) {
+        $(this).attr("checked",false);
+    }
+    else {
+        $(this).attr("checked",true);
+    }
+});

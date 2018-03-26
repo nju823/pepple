@@ -10,6 +10,7 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/left_nav.js"></script>
     <script src="js/jquery.datetimepicker.full.js"></script>
     <script src="http://malsup.github.io/jquery.form.js"></script>

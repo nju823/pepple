@@ -9,17 +9,22 @@ ul{
 
 p{
 	font-size:14px!important;
+}
 
+.explain_p{
+	color: #cccccc;
 }
 
 .left-nav{
 	width: 13%;
+	min-width: 180px;
 	display: inline-block;
 }
 
 .right-body{
 	display: inline-block;
 	width: 86.4%;
+	min-width: 1000px;
 	height:100%;
 	background-color: #F6F6F6;
 	vertical-align: top;
@@ -43,6 +48,10 @@ p{
 	width: 200px;
 }
 
+.form_container{
+	margin-left: 10px;
+}
+
 .form-control{
 	display: inline-block;
 }
@@ -63,6 +72,7 @@ p{
 
 .input_label{
 	display: inline-block;
+	width: 70px;
 	margin-right: 20px;
 	margin-top:20px;
 }
