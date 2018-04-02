@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.edu.cn.pepple.mapper.history_statistic.ServiceChainStatisticMapper">
+  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.ServiceChainStatisticVO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
+    <result column="root_service" jdbcType="VARCHAR" property="rootService" />
+    <result column="parent_service" jdbcType="VARCHAR" property="parentService" />
+    <result column="hour" jdbcType="INTEGER" property="hour" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
+    <result column="access_count" jdbcType="BIGINT" property="accessCount" />
+    <result column="average_access_time" jdbcType="BIGINT" property="averageAccessTime" />
+    <result column="error_count" jdbcType="BIGINT" property="errorCount" />
+    <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
+    <result column="slow_count" jdbcType="BIGINT" property="slowCount" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, service, root_service, parent_service, hour, date, target, access_count, average_access_time, 
+    error_count, no_response_count, slow_count, add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_chain_statistic_hour
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="getInvokedServices" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT DISTINCT service FROM service_chain_statistic_hour WHERE `date`=#{date}
+  </select>
+
+  <select id="getStatisticByDate" resultMap="BaseResultMap">
+    SELECT * from service_chain_statistic_hour where `date`=#{date} AND sevice=#{service} AND root_service=#{rootService}
+  </select>
+</mapper>

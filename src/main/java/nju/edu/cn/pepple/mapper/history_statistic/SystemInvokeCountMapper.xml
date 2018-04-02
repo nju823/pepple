@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.edu.cn.pepple.mapper.history_statistic.SystemInvokeCountMapper">
+  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="source_system" jdbcType="VARCHAR" property="sourceSystem" />
+    <result column="target_system" jdbcType="VARCHAR" property="targetSystem" />
+    <result column="invoke_date" jdbcType="DATE" property="invokeDate" />
+    <result column="invoke_hour" jdbcType="INTEGER" property="invokeHour" />
+    <result column="invoke_count" jdbcType="BIGINT" property="invokeCount" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, source_system, target_system, invoke_date, invoke_hour, invoke_count, add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_invoke_hour_count
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from system_invoke_hour_count
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
+    insert into system_invoke_hour_count (id, source_system, target_system, 
+      invoke_date, invoke_hour, invoke_count, 
+      add_time)
+    values (#{id,jdbcType=BIGINT}, #{sourceSystem,jdbcType=VARCHAR}, #{targetSystem,jdbcType=VARCHAR}, 
+      #{invokeDate,jdbcType=DATE}, #{invokeHour,jdbcType=INTEGER}, #{invokeCount,jdbcType=BIGINT}, 
+      #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
+    insert into system_invoke_hour_count
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sourceSystem != null">
+        source_system,
+      </if>
+      <if test="targetSystem != null">
+        target_system,
+      </if>
+      <if test="invokeDate != null">
+        invoke_date,
+      </if>
+      <if test="invokeHour != null">
+        invoke_hour,
+      </if>
+      <if test="invokeCount != null">
+        invoke_count,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sourceSystem != null">
+        #{sourceSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="targetSystem != null">
+        #{targetSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="invokeDate != null">
+        #{invokeDate,jdbcType=DATE},
+      </if>
+      <if test="invokeHour != null">
+        #{invokeHour,jdbcType=INTEGER},
+      </if>
+      <if test="invokeCount != null">
+        #{invokeCount,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
+    update system_invoke_hour_count
+    <set>
+      <if test="sourceSystem != null">
+        source_system = #{sourceSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="targetSystem != null">
+        target_system = #{targetSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="invokeDate != null">
+        invoke_date = #{invokeDate,jdbcType=DATE},
+      </if>
+      <if test="invokeHour != null">
+        invoke_hour = #{invokeHour,jdbcType=INTEGER},
+      </if>
+      <if test="invokeCount != null">
+        invoke_count = #{invokeCount,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
+    update system_invoke_hour_count
+    set source_system = #{sourceSystem,jdbcType=VARCHAR},
+      target_system = #{targetSystem,jdbcType=VARCHAR},
+      invoke_date = #{invokeDate,jdbcType=DATE},
+      invoke_hour = #{invokeHour,jdbcType=INTEGER},
+      invoke_count = #{invokeCount,jdbcType=BIGINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.edu.cn.pepple.mapper.history_statistic.SystemServiceStatisticMapper">
+  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.SystemStatisticVO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="system" jdbcType="VARCHAR" property="system" />
+    <result column="invoke_hour" jdbcType="INTEGER" property="invokeHour" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="average_access_time" jdbcType="INTEGER" property="averageAccessTime" />
+    <result column="error_count" jdbcType="BIGINT" property="errorCount" />
+    <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
+    <result column="slow_count" jdbcType="BIGINT" property="slowCount" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="access_count" jdbcType="BIGINT" property="accessCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, system, invoke_hour, date, average_access_time, error_count, no_response_count, 
+    slow_count, add_time, access_count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_statistic_hour
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from system_statistic_hour
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
+    insert into system_statistic_hour (id, system, invoke_hour, 
+      date, average_access_time, error_count, 
+      no_response_count, slow_count, add_time, 
+      access_count)
+    values (#{id,jdbcType=BIGINT}, #{system,jdbcType=VARCHAR}, #{invokeHour,jdbcType=INTEGER}, 
+      #{date,jdbcType=DATE}, #{averageAccessTime,jdbcType=INTEGER}, #{errorCount,jdbcType=BIGINT}, 
+      #{noResponseCount,jdbcType=BIGINT}, #{slowCount,jdbcType=BIGINT}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{accessCount,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
+    insert into system_statistic_hour
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="system != null">
+        system,
+      </if>
+      <if test="invokeHour != null">
+        invoke_hour,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="averageAccessTime != null">
+        average_access_time,
+      </if>
+      <if test="errorCount != null">
+        error_count,
+      </if>
+      <if test="noResponseCount != null">
+        no_response_count,
+      </if>
+      <if test="slowCount != null">
+        slow_count,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="accessCount != null">
+        access_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="system != null">
+        #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="invokeHour != null">
+        #{invokeHour,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="averageAccessTime != null">
+        #{averageAccessTime,jdbcType=INTEGER},
+      </if>
+      <if test="errorCount != null">
+        #{errorCount,jdbcType=BIGINT},
+      </if>
+      <if test="noResponseCount != null">
+        #{noResponseCount,jdbcType=BIGINT},
+      </if>
+      <if test="slowCount != null">
+        #{slowCount,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessCount != null">
+        #{accessCount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
+    update system_statistic_hour
+    <set>
+      <if test="system != null">
+        system = #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="invokeHour != null">
+        invoke_hour = #{invokeHour,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="averageAccessTime != null">
+        average_access_time = #{averageAccessTime,jdbcType=INTEGER},
+      </if>
+      <if test="errorCount != null">
+        error_count = #{errorCount,jdbcType=BIGINT},
+      </if>
+      <if test="noResponseCount != null">
+        no_response_count = #{noResponseCount,jdbcType=BIGINT},
+      </if>
+      <if test="slowCount != null">
+        slow_count = #{slowCount,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessCount != null">
+        access_count = #{accessCount,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
+    update system_statistic_hour
+    set system = #{system,jdbcType=VARCHAR},
+      invoke_hour = #{invokeHour,jdbcType=INTEGER},
+      date = #{date,jdbcType=DATE},
+      average_access_time = #{averageAccessTime,jdbcType=INTEGER},
+      error_count = #{errorCount,jdbcType=BIGINT},
+      no_response_count = #{noResponseCount,jdbcType=BIGINT},
+      slow_count = #{slowCount,jdbcType=BIGINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      access_count = #{accessCount,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

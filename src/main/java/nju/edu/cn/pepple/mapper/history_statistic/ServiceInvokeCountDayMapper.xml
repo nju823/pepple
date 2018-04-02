@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.edu.cn.pepple.mapper.history_statistic.ServiceInvokeCountDayMapper">
+  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
+    <result column="parent_service" jdbcType="VARCHAR" property="parentService" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="count" jdbcType="BIGINT" property="count" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, source, target, service, parent_service, date, count, add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_invoke_count_day
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from service_invoke_count_day
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
+    insert into service_invoke_count_day (id, source, target, 
+      service, parent_service, date, 
+      count, add_time)
+    values (#{id,jdbcType=BIGINT}, #{source,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, 
+      #{service,jdbcType=VARCHAR}, #{parentService,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
+      #{count,jdbcType=BIGINT}, #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
+    insert into service_invoke_count_day
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="target != null">
+        target,
+      </if>
+      <if test="service != null">
+        service,
+      </if>
+      <if test="parentService != null">
+        parent_service,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null">
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="parentService != null">
+        #{parentService,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
+    update service_invoke_count_day
+    <set>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null">
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        service = #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="parentService != null">
+        parent_service = #{parentService,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
+    update service_invoke_count_day
+    set source = #{source,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      service = #{service,jdbcType=VARCHAR},
+      parent_service = #{parentService,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      count = #{count,jdbcType=BIGINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
