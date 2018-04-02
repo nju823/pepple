@@ -8,4 +8,6 @@ public interface getLogService {
     public ResponseDto searchLog(searchDto searchInfo);
 
     public ResponseDto getSystems();
+
+    public ResponseDto getLogById(long id);
 }

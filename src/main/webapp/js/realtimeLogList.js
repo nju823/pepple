@@ -78,18 +78,14 @@ function loadFilterInfo() {
     }
     systems.push("");
 
-    for(var i =0;i<typeInfo.length;i++){
-        if(i==0){
+
+        if($("#type_0").attr("checked")){
             types.push(1);
             types.push(2);
-        }else if (i==1){
+        }
+        if($("#type_1").attr("checked")){
             types.push(3);
         }
-
-        // if($("#type_"+i).attr("checked")){
-        //     types.push(i+1);
-        // }
-    }
 
     filter.systems = systems;
     filter.types = types;
@@ -97,41 +93,85 @@ function loadFilterInfo() {
     return filter;
 }
 
-function loadSearchHistory() {
+function loadSearchHistory(id) {
+    var ids = JSON.parse(localStorage.getItem("searchHistory"));
+    if(!ids)
+        ids = [];
+
+    //传入参数，更新localstorage
+    if(id){
+        if((ids||[]).length === 10){
+            ids.pop();
+            ids.push(id);
+        }else{
+            ids.push(id);
+        }
+        localStorage.setItem("searchHistory",JSON.stringify(ids));
+    }
+
+
+    $("#search_history").empty();
+    $("#search_history").append("<p class='explain_p'>"+"搜索历史："+"</p>");
+    for(var i =ids.length-1 ;i>=0;i--){
+        $("#search_history").append("<p class='explain_p'>"+ids[i]+"</p>");
+    }
 
 }
 
 //点击搜索loadLog()
 $(document).on("click","#search_btn",function () {
-    loadLog();
+    var filter = loadFilterInfo();
+    submitRequest("POST","getLog",filter,false,
+        function(msg){
+        if((msg.content||[]).length>0){
+            logInfo = msg.content;
+            loadLog();
+        }else {
+            alert("未搜索到符合条件的日志记录");
+        }
+    },
+        function(msg){
+            alert(msg.message);
+        });
 });
 
 $(document).on("click","#exact_search_btn",function () {
     //精确搜索
-    loadSearchHistory();
+    var inputIdStr = $("#logSpanId").val();
+    var inputIdNum = Number(inputIdStr);
+    if(inputIdNum){
+        loadSearchHistory(inputIdNum);
+        submitRequest("POST","getLogById",inputIdNum,false,
+            function(msg){
+            if(msg.success){
+                logInfo = msg.content;
+                loadLog();
+            }else{
+                alert(msg.message);
+            }
+
+            },
+            function(msg){
+                alert(msg.message);
+            });
+    }else{
+        alert("请输入正确格式的id");
+    }
+
+
 });
 
 function loadLog() {
-    var filter = loadFilterInfo();
-    submitRequest("POST","getLog",filter,false,
-        function(msg){
-            logInfo = msg.content;
-        },
-        function(msg){
-            alert(msg.message);
-        });
-
     $("#logListContainer").empty();
     for(var i =0;i<logInfo.length;i++) {
 
-            $("#logListContainer").append("<div class='content logCointainer'>" +
-                "<div class='typeContainer' style='background-color: " + getTypeColor(logInfo[i].root.type) + "'>" + getTypeContent(logInfo[i].root.type) + "</div>" +
-                "<div class='simpleLogInfo'><div class='logTimeContainer'>" + new Date(logInfo[i].root.requestCurrentMillis) +"</div>"
-                +"<div>"+"接口名称： "+logInfo[i].root.serviceName+"</div>"
-                +"<div>"+"接口地址： "+logInfo[i].root.serviceUrl+"</div>"
-                +"</div><div class='slideLogBtn closeLog' id='slide_"+i+"'><img src='img/down-icon.png'></div></div>");
-        }
-
+        $("#logListContainer").append("<div class='content logCointainer'>" +
+            "<div class='typeContainer' style='background-color: " + getTypeColor(logInfo[i].root.type) + "'>" + getTypeContent(logInfo[i].root.type) + "</div>" +
+            "<div class='simpleLogInfo'><div class='logTimeContainer'>" + new Date(logInfo[i].root.requestCurrentMillis) +"</div>"
+            +"<div>"+"接口名称： "+logInfo[i].root.serviceName+"</div>"
+            +"<div>"+"接口地址： "+logInfo[i].root.serviceUrl+"</div>"
+            +"</div><div class='slideLogBtn closeLog' id='slide_"+i+"'><img src='img/down-icon.png'></div></div>");
+    }
 }
 
 function getTypeColor(type){

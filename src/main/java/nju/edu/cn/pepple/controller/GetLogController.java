@@ -24,4 +24,8 @@ public class GetLogController {
     @RequestMapping(value = "/getSystems")
     @ResponseBody
     public  ResponseDto getSystems(){ return logService.getSystems(); };
+
+    @RequestMapping(value = "/getLogById")
+    @ResponseBody
+    public  ResponseDto getLogById(@RequestBody @Valid Long id){ return logService.getLogById(id); };
 }

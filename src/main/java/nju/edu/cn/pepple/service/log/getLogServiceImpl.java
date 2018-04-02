@@ -1,11 +1,9 @@
 package nju.edu.cn.pepple.service.log;
 
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import nju.edu.cn.pepple.dto.ResponseDto;
 import nju.edu.cn.pepple.dto.searchDto;
-import nju.edu.cn.pepple.model.Log;
 import nju.edu.cn.pepple.model.Trace;
 import nju.edu.cn.pepple.util.JSONArrayHelper;
 import nju.edu.cn.pepple.util.SearchHelper;
@@ -27,6 +25,7 @@ public class getLogServiceImpl implements getLogService {
 
     @Override
     public ResponseDto searchLog(searchDto searchInfo) {
+        System.out.println("getlog");
         //用JSONobject构造查询语句
         JSONObject query = new JSONObject();
         JSONObject bool = new JSONObject();
@@ -81,6 +80,7 @@ public class getLogServiceImpl implements getLogService {
         }
 
         //完成搜索条件
+        must_should.put("must_not",JSONObject.fromObject("{\"term\":{\"requestCurrentMillis\":0}}"));
         must_should.put("must",mustArray);
         must_should.put("should",shouldArray);
         bool.put("bool",must_should);
@@ -97,6 +97,7 @@ public class getLogServiceImpl implements getLogService {
                 "\t\t\t\t\t\t\"_source\":{\n" +
                 "\t\t\t\t\t\t\t\"includes\":[\"traceId\",\"spanId\",\"parentSpanId\",\"type\",\"source\",\"target\",\"serviceName\",\"serviceUrl\",\"requestCurrentMillis\",\"responseCurrentMillis\",\"requestContent\",\"responseContent\",\"time\"]\n" +
                 "\t\t\t\t\t\t}\n" +
+                ",\"size\":9999"+
                 "\t\t\t\t\t}\n" +
                 "\t\t\t\t}\n" +
                 "\t\t\t}\n" +
@@ -108,17 +109,7 @@ public class getLogServiceImpl implements getLogService {
         System.out.println("搜索条件 "+query.toString());
         String search_result_str=sendPost("http://47.100.34.12:1346/searchdata/", "index=log_index&type=log_table&searchbody="+query.toString());
         System.out.println(search_result_str);
-
-        ArrayList<Trace> traces = new ArrayList<Trace>();
-        JSONArray traceArray = JSONObject.fromObject(search_result_str).getJSONObject("aggregations").getJSONObject("aggTraceId").getJSONArray("buckets");
-        for(int i=0;i<traceArray.size();i++){
-            Trace temp = new Trace();
-            temp.setTraceId(traceArray.getJSONObject(i).getString("key"));
-            temp.setLogs(jsonArrayHelper.HitsArrayToListOfLog(traceArray.getJSONObject(i).getJSONObject("aggTraceIdTerms").getJSONObject("hits").getJSONArray("hits")));
-            temp.findRoot();
-            traces.add(temp);
-        }
-        return ResponseDto.buildSuccess(traces);
+        return ResponseDto.buildSuccess(jsonArrayHelper.TraceSearchResultsArrayToList(search_result_str));
     }
 
     @Override
@@ -138,6 +129,120 @@ public class getLogServiceImpl implements getLogService {
         return ResponseDto.buildSuccess(union_systems);
     }
 
+    @Override
+    public ResponseDto getLogById(long id) {
+
+
+        String traceIdQueryStr = "{\n" +
+                "\t\"query\": {\n" +
+                "\t\t\"bool\": {\n" +
+                "\t\t\t\"must\": {\n" +
+                "\t\t\t\t\"term\": {\n" +
+                "\t\t\t\t\t\"traceId\": "+id+"\n" +
+                "\t\t\t\t}\n" +
+                "\t\t\t}\n" +
+                ",\"must_not\":{\"term\":{\"requestCurrentMillis\":0}}"+
+                "\t\t}\n" +
+                "\t},\n" +
+                "\n" +
+                "\t\"aggs\": {\n" +
+                "\t\t\"aggTraceId\": {\n" +
+                "\t\t\t\"terms\": {\n" +
+                "\t\t\t\t\"field\": \"traceId\"\n" +
+                "\t\t\t},\n" +
+                "\t\t\t\"aggs\": {\n" +
+                "\t\t\t\t\"aggTraceIdTerms\": {\n" +
+                "\t\t\t\t\t\"top_hits\": {\n" +
+                "\t\t\t\t\t\t\"_source\": {\n" +
+                "\t\t\t\t\t\t\t\"includes\": [\n" +
+                "\t\t\t\t\t\t\t\t\"traceId\",\n" +
+                "\t\t\t\t\t\t\t\t\"spanId\",\n" +
+                "\t\t\t\t\t\t\t\t\"parentSpanId\",\n" +
+                "\t\t\t\t\t\t\t\t\"type\",\n" +
+                "\t\t\t\t\t\t\t\t\"source\",\n" +
+                "\t\t\t\t\t\t\t\t\"target\",\n" +
+                "\t\t\t\t\t\t\t\t\"serviceName\",\n" +
+                "\t\t\t\t\t\t\t\t\"serviceUrl\",\n" +
+                "\t\t\t\t\t\t\t\t\"requestCurrentMillis\",\n" +
+                "\t\t\t\t\t\t\t\t\"responseCurrentMillis\",\n" +
+                "\t\t\t\t\t\t\t\t\"requestContent\",\n" +
+                "\t\t\t\t\t\t\t\t\"responseContent\",\n" +
+                "\t\t\t\t\t\t\t\t\"time\"\n" +
+                "\t\t\t\t\t\t\t]\n" +
+                "\t\t\t\t\t\t}\n" +
+                ",\"size\":9999"+
+                "\t\t\t\t\t}\n" +
+                "\t\t\t\t}\n" +
+                "\t\t\t}\n" +
+                "\t\t}\n" +
+                "\t}\n" +
+                "}";
+
+        String traceIdResultStr = sendPost("http://47.100.34.12:1346/searchdata/", "index=log_index&type=log_table&searchbody="+traceIdQueryStr.toString());
+        ArrayList<Trace> traceOfTraceId = jsonArrayHelper.TraceSearchResultsArrayToList(traceIdResultStr);
+        if (traceOfTraceId.size()>0)
+            return ResponseDto.buildSuccess(traceOfTraceId);
+
+        //寻找spanid的traceId
+        String spanIdQueryStr_TraceId = "{\"query\":{\"term\":{\"spanId\":"+id+"}}}";
+        String findTraceIdResultStr = sendPost("http://47.100.34.12:1346/searchdata/", "index=log_index&type=log_table&searchbody="+spanIdQueryStr_TraceId.toString());
+
+        if(JSONObject.fromObject(findTraceIdResultStr).getJSONObject("hits").getInt("total")==0){
+            return ResponseDto.buildFailure("没有相同span/trace id的日志记录");
+        }else{
+            long traceIdOfSpanId = JSONObject.fromObject(findTraceIdResultStr).getJSONObject("hits").getJSONArray("hits").getJSONObject(0).getJSONObject("_source").getLong("traceId");
+            String spanIdQueryStr = "{\n" +
+                    "\t\"query\": {\n" +
+                    "\t\t\"bool\": {\n" +
+                    "\t\t\t\"must\": {\n" +
+                    "\t\t\t\t\"term\": {\n" +
+                    "\t\t\t\t\t\"traceId\": "+traceIdOfSpanId+"\n" +
+                    "\t\t\t\t}\n" +
+                    "\t\t\t}\n" +
+                    ",\"must_not\":{\"term\":{\"requestCurrentMillis\":0}}"+
+                    "\t\t}\n" +
+                    "\t},\n" +
+                    "\n" +
+                    "\t\"aggs\": {\n" +
+                    "\t\t\"aggTraceId\": {\n" +
+                    "\t\t\t\"terms\": {\n" +
+                    "\t\t\t\t\"field\": \"traceId\"\n" +
+                    "\t\t\t},\n" +
+                    "\t\t\t\"aggs\": {\n" +
+                    "\t\t\t\t\"aggTraceIdTerms\": {\n" +
+                    "\t\t\t\t\t\"top_hits\": {\n" +
+                    "\t\t\t\t\t\t\"_source\": {\n" +
+                    "\t\t\t\t\t\t\t\"includes\": [\n" +
+                    "\t\t\t\t\t\t\t\t\"traceId\",\n" +
+                    "\t\t\t\t\t\t\t\t\"spanId\",\n" +
+                    "\t\t\t\t\t\t\t\t\"parentSpanId\",\n" +
+                    "\t\t\t\t\t\t\t\t\"type\",\n" +
+                    "\t\t\t\t\t\t\t\t\"source\",\n" +
+                    "\t\t\t\t\t\t\t\t\"target\",\n" +
+                    "\t\t\t\t\t\t\t\t\"serviceName\",\n" +
+                    "\t\t\t\t\t\t\t\t\"serviceUrl\",\n" +
+                    "\t\t\t\t\t\t\t\t\"requestCurrentMillis\",\n" +
+                    "\t\t\t\t\t\t\t\t\"responseCurrentMillis\",\n" +
+                    "\t\t\t\t\t\t\t\t\"requestContent\",\n" +
+                    "\t\t\t\t\t\t\t\t\"responseContent\",\n" +
+                    "\t\t\t\t\t\t\t\t\"time\"\n" +
+                    "\t\t\t\t\t\t\t]\n" +
+                    "\t\t\t\t\t\t}\n" +
+                    ",\"size\":9999"+
+                    "\t\t\t\t\t}\n" +
+                    "\t\t\t\t}\n" +
+                    "\t\t\t}\n" +
+                    "\t\t}\n" +
+                    "\t}\n" +
+                    "}";
+
+            String spanIdResultStr = sendPost("http://47.100.34.12:1346/searchdata/", "index=log_index&type=log_table&searchbody="+spanIdQueryStr.toString());
+            System.out.println(spanIdQueryStr);
+            System.out.println(spanIdResultStr);
+            ArrayList<Trace> traceOfSpanId = jsonArrayHelper.TraceSearchResultsArrayToList(spanIdResultStr);
+                return ResponseDto.buildSuccess(traceOfSpanId);
+        }
+    }
 
 
     public static String sendPost(String url, String param) {

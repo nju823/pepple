@@ -52,7 +52,6 @@
     </div>
     <div id="search_history">
         <p class="explain_p">搜索历史：</p>
-        <p class="explain_p">121212121</p>
     </div>
 </div>
 <div id="logListContainer"></div>
