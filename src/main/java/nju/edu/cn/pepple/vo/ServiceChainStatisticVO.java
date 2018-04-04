@@ -3,7 +3,7 @@ package nju.edu.cn.pepple.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ServiceChainStatisticVO implements Serializable {
+public class ServiceChainStatisticVO extends StatisticVO implements Serializable {
     private Integer id;
 
     private String service;
@@ -16,19 +16,19 @@ public class ServiceChainStatisticVO implements Serializable {
 
     private String target;
 
-    private Integer accessCount;
-
-    private Integer averageAccessTime;
-
-    private Integer errorCount;
-
-    private Integer noResponseCount;
-
-    private Integer slowCount;
+    private int hour;
 
     private Date addTime;
 
     private static final long serialVersionUID = 1L;
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
 
     public Integer getId() {
         return id;

@@ -21,119 +21,12 @@
     from service_invoke_hour_count
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from service_invoke_hour_count
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
-    insert into service_invoke_hour_count (id, source, target, 
-      service, parent_service, hour, 
-      date, count, add_time)
-    values (#{id,jdbcType=BIGINT}, #{source,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, 
-      #{service,jdbcType=VARCHAR}, #{parentService,jdbcType=VARCHAR}, #{hour,jdbcType=INTEGER}, 
-      #{date,jdbcType=DATE}, #{count,jdbcType=BIGINT}, #{addTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
-    insert into service_invoke_hour_count
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="source != null">
-        source,
-      </if>
-      <if test="target != null">
-        target,
-      </if>
-      <if test="service != null">
-        service,
-      </if>
-      <if test="parentService != null">
-        parent_service,
-      </if>
-      <if test="hour != null">
-        hour,
-      </if>
-      <if test="date != null">
-        date,
-      </if>
-      <if test="count != null">
-        count,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="source != null">
-        #{source,jdbcType=VARCHAR},
-      </if>
-      <if test="target != null">
-        #{target,jdbcType=VARCHAR},
-      </if>
-      <if test="service != null">
-        #{service,jdbcType=VARCHAR},
-      </if>
-      <if test="parentService != null">
-        #{parentService,jdbcType=VARCHAR},
-      </if>
-      <if test="hour != null">
-        #{hour,jdbcType=INTEGER},
-      </if>
-      <if test="date != null">
-        #{date,jdbcType=DATE},
-      </if>
-      <if test="count != null">
-        #{count,jdbcType=BIGINT},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
-    update service_invoke_hour_count
-    <set>
-      <if test="source != null">
-        source = #{source,jdbcType=VARCHAR},
-      </if>
-      <if test="target != null">
-        target = #{target,jdbcType=VARCHAR},
-      </if>
-      <if test="service != null">
-        service = #{service,jdbcType=VARCHAR},
-      </if>
-      <if test="parentService != null">
-        parent_service = #{parentService,jdbcType=VARCHAR},
-      </if>
-      <if test="hour != null">
-        hour = #{hour,jdbcType=INTEGER},
-      </if>
-      <if test="date != null">
-        date = #{date,jdbcType=DATE},
-      </if>
-      <if test="count != null">
-        count = #{count,jdbcType=BIGINT},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
-    update service_invoke_hour_count
-    set source = #{source,jdbcType=VARCHAR},
-      target = #{target,jdbcType=VARCHAR},
-      service = #{service,jdbcType=VARCHAR},
-      parent_service = #{parentService,jdbcType=VARCHAR},
-      hour = #{hour,jdbcType=INTEGER},
-      date = #{date,jdbcType=DATE},
-      count = #{count,jdbcType=BIGINT},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
+  <select id="getInvokedService" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT DISTINCT service from service_invoke_hour_count WHERE `date`=#{date}
+  </select>
+
+  <select id="getStatistic" resultMap="BaseResultMap">
+    SELECT * from service_invoke_hour_count where `date`=#{date} AND service=#{service}
+  </select>
 </mapper>

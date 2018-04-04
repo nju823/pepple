@@ -1,17 +1,27 @@
 package nju.edu.cn.pepple.mapper.history_statistic;
 
 import nju.edu.cn.pepple.vo.ServiceInvokeCountVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ServiceInvokeCountMapper {
-    int deleteByPrimaryKey(Long id);
-
-    int insert(ServiceInvokeCountVO record);
-
-    int insertSelective(ServiceInvokeCountVO record);
 
     ServiceInvokeCountVO selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(ServiceInvokeCountVO record);
+    /**
+     * 获取某天调用的服务
+     * @param date
+     * @return
+     */
+    List<String> getInvokedService(String date);
 
-    int updateByPrimaryKey(ServiceInvokeCountVO record);
+    /**
+     * 获取统计
+     * @param date
+     * @param service
+     * @return
+     */
+    List<ServiceInvokeCountVO> getStatistic(@Param("date") String date,@Param("service") String service);
+
 }

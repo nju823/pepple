@@ -20,6 +20,16 @@ public class ServiceInvokeCountVO implements Serializable {
 
     private Date addTime;
 
+    private int hour;
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {

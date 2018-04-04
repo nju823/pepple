@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.SystemStatisticVO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="system" jdbcType="VARCHAR" property="system" />
-    <result column="invoke_hour" jdbcType="INTEGER" property="invokeHour" />
+    <result column="invoke_hour" jdbcType="INTEGER" property="hour" />
     <result column="date" jdbcType="DATE" property="date" />
     <result column="average_access_time" jdbcType="INTEGER" property="averageAccessTime" />
     <result column="error_count" jdbcType="BIGINT" property="errorCount" />
@@ -23,30 +23,15 @@
     from system_statistic_hour
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from system_statistic_hour
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
-    insert into system_statistic_hour (id, system, invoke_hour, 
-      date, average_access_time, error_count, 
-      no_response_count, slow_count, add_time, 
-      access_count)
-    values (#{id,jdbcType=BIGINT}, #{system,jdbcType=VARCHAR}, #{invokeHour,jdbcType=INTEGER}, 
-      #{date,jdbcType=DATE}, #{averageAccessTime,jdbcType=INTEGER}, #{errorCount,jdbcType=BIGINT}, 
-      #{noResponseCount,jdbcType=BIGINT}, #{slowCount,jdbcType=BIGINT}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{accessCount,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
+
+  <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceStatisticVO">
     insert into system_statistic_hour
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
+
       <if test="system != null">
         system,
       </if>
-      <if test="invokeHour != null">
+      <if test="hour != null">
         invoke_hour,
       </if>
       <if test="date != null">
@@ -64,21 +49,17 @@
       <if test="slowCount != null">
         slow_count,
       </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
+
       <if test="accessCount != null">
         access_count,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
+
       <if test="system != null">
         #{system,jdbcType=VARCHAR},
       </if>
-      <if test="invokeHour != null">
+      <if test="hour != null">
         #{invokeHour,jdbcType=INTEGER},
       </if>
       <if test="date != null">
@@ -96,58 +77,11 @@
       <if test="slowCount != null">
         #{slowCount,jdbcType=BIGINT},
       </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="accessCount != null">
         #{accessCount,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
-    update system_statistic_hour
-    <set>
-      <if test="system != null">
-        system = #{system,jdbcType=VARCHAR},
-      </if>
-      <if test="invokeHour != null">
-        invoke_hour = #{invokeHour,jdbcType=INTEGER},
-      </if>
-      <if test="date != null">
-        date = #{date,jdbcType=DATE},
-      </if>
-      <if test="averageAccessTime != null">
-        average_access_time = #{averageAccessTime,jdbcType=INTEGER},
-      </if>
-      <if test="errorCount != null">
-        error_count = #{errorCount,jdbcType=BIGINT},
-      </if>
-      <if test="noResponseCount != null">
-        no_response_count = #{noResponseCount,jdbcType=BIGINT},
-      </if>
-      <if test="slowCount != null">
-        slow_count = #{slowCount,jdbcType=BIGINT},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="accessCount != null">
-        access_count = #{accessCount,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="nju.edu.cn.pepple.vo.SystemStatisticVO">
-    update system_statistic_hour
-    set system = #{system,jdbcType=VARCHAR},
-      invoke_hour = #{invokeHour,jdbcType=INTEGER},
-      date = #{date,jdbcType=DATE},
-      average_access_time = #{averageAccessTime,jdbcType=INTEGER},
-      error_count = #{errorCount,jdbcType=BIGINT},
-      no_response_count = #{noResponseCount,jdbcType=BIGINT},
-      slow_count = #{slowCount,jdbcType=BIGINT},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      access_count = #{accessCount,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
 </mapper>

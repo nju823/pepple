@@ -12,6 +12,8 @@ public class SystemInvokeCountVO implements Serializable {
 
     private Date invokeDate;
 
+    private int invokeHour;
+
     private Long invokeCount;
 
     private Date addTime;
@@ -24,6 +26,14 @@ public class SystemInvokeCountVO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getInvokeHour() {
+        return invokeHour;
+    }
+
+    public void setInvokeHour(int invokeHour) {
+        this.invokeHour = invokeHour;
     }
 
     public String getSourceSystem() {

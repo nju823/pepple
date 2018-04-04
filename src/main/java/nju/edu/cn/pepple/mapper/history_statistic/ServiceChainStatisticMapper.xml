@@ -32,6 +32,6 @@
   </select>
 
   <select id="getStatisticByDate" resultMap="BaseResultMap">
-    SELECT * from service_chain_statistic_hour where `date`=#{date} AND sevice=#{service} AND root_service=#{rootService}
+    SELECT * from service_chain_statistic_hour where `date`=#{date} AND service=#{service}
   </select>
 </mapper>

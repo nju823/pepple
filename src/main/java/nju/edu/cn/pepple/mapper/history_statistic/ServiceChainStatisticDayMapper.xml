@@ -19,20 +19,18 @@
     insert into service_chain_statistic_day (id, service, root_service, 
       parent_service, date, target, 
       access_count, average_access_time, error_count, 
-      no_response_count, slow_count, add_time
+      no_response_count, slow_count
       )
     values (#{id,jdbcType=INTEGER}, #{service,jdbcType=VARCHAR}, #{rootService,jdbcType=VARCHAR}, 
       #{parentService,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{target,jdbcType=VARCHAR}, 
       #{accessCount,jdbcType=INTEGER}, #{averageAccessTime,jdbcType=INTEGER}, #{errorCount,jdbcType=INTEGER}, 
-      #{noResponseCount,jdbcType=INTEGER}, #{slowCount,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}
+      #{noResponseCount,jdbcType=INTEGER}, #{slowCount,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceChainStatisticVO">
     insert into service_chain_statistic_day
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
+
       <if test="service != null">
         service,
       </if>
@@ -63,14 +61,9 @@
       <if test="slowCount != null">
         slow_count,
       </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
+
       <if test="service != null">
         #{service,jdbcType=VARCHAR},
       </if>
@@ -100,9 +93,6 @@
       </if>
       <if test="slowCount != null">
         #{slowCount,jdbcType=INTEGER},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

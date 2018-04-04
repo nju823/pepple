@@ -18,24 +18,11 @@
     from system_invoke_count_day
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from system_invoke_count_day
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
-    insert into system_invoke_count_day (id, source_system, target_system, 
-      invoke_date, invoke_count, add_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{sourceSystem,jdbcType=VARCHAR}, #{targetSystem,jdbcType=VARCHAR}, 
-      #{invokeDate,jdbcType=DATE}, #{invokeCount,jdbcType=BIGINT}, #{addTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
     insert into system_invoke_count_day
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
+
       <if test="sourceSystem != null">
         source_system,
       </if>
@@ -48,14 +35,10 @@
       <if test="invokeCount != null">
         invoke_count,
       </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
+      
       <if test="sourceSystem != null">
         #{sourceSystem,jdbcType=VARCHAR},
       </if>
@@ -68,39 +51,8 @@
       <if test="invokeCount != null">
         #{invokeCount,jdbcType=BIGINT},
       </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
+
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
-    update system_invoke_count_day
-    <set>
-      <if test="sourceSystem != null">
-        source_system = #{sourceSystem,jdbcType=VARCHAR},
-      </if>
-      <if test="targetSystem != null">
-        target_system = #{targetSystem,jdbcType=VARCHAR},
-      </if>
-      <if test="invokeDate != null">
-        invoke_date = #{invokeDate,jdbcType=DATE},
-      </if>
-      <if test="invokeCount != null">
-        invoke_count = #{invokeCount,jdbcType=BIGINT},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
-    update system_invoke_count_day
-    set source_system = #{sourceSystem,jdbcType=VARCHAR},
-      target_system = #{targetSystem,jdbcType=VARCHAR},
-      invoke_date = #{invokeDate,jdbcType=DATE},
-      invoke_count = #{invokeCount,jdbcType=BIGINT},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
 </mapper>

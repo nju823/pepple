@@ -1,17 +1,21 @@
 package nju.edu.cn.pepple.mapper.history_statistic;
 
 import nju.edu.cn.pepple.vo.ServiceStatisticVO;
+import nju.edu.cn.pepple.vo.StatisticVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ServiceStatisticMapper {
-    int deleteByPrimaryKey(Long id);
 
-    int insert(ServiceStatisticVO record);
-
-    int insertSelective(ServiceStatisticVO record);
 
     ServiceStatisticVO selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(ServiceStatisticVO record);
+    List<String> getInvokedServices(String date);
 
-    int updateByPrimaryKey(ServiceStatisticVO record);
+    List<String> getInvokedSystem(String date);
+
+    List<ServiceStatisticVO> getStatistic(@Param("date") String date,@Param("service") String service);
+
+    List<ServiceStatisticVO> getStatisticBySystem(@Param("date") String date,@Param("system") String system);
 }

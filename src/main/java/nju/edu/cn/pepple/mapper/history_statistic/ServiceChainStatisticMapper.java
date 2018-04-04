@@ -18,12 +18,11 @@ public interface ServiceChainStatisticMapper {
 
     /**
      * 获取一天的统计量
-     * @param sevice
-     * @param rootService
+     * @param service
      * @param date
      * @return
      */
-    public List<ServiceChainStatisticVO> getStatisticByDate(@Param("service") String sevice
-            , @Param("rootService") String rootService,@Param("date") String date);
+    public List<ServiceChainStatisticVO> getStatisticByDate(@Param("service") String service
+            , @Param("date") String date);
 
 }
