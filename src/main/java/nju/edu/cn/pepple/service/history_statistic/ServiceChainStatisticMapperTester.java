@@ -1,7 +1,9 @@
 package nju.edu.cn.pepple.service.history_statistic;
 
+import com.alibaba.fastjson.JSONObject;
 import nju.edu.cn.pepple.mapper.history_statistic.ServiceChainStatisticMapper;
 
+import nju.edu.cn.pepple.mapper.history_statistic.SystemStatisticDayMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,14 @@ public class ServiceChainStatisticMapperTester {
 
     @Autowired
     private ServiceChainStatisticMapper mapper;
+
+    @Autowired
+    private SystemStatisticDayMapper systemStatisticDayMapper;
+
+    @Test
+    public void getAllSystemStatistic(){
+        System.out.println(JSONObject.toJSONString(systemStatisticDayMapper.getAllSystemStatistic("2018-03-31")));
+    }
 
     @Test
     public void getInvokeServices(){

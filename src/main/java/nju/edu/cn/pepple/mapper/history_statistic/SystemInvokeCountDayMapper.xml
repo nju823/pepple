@@ -38,7 +38,7 @@
 
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      
+
       <if test="sourceSystem != null">
         #{sourceSystem,jdbcType=VARCHAR},
       </if>

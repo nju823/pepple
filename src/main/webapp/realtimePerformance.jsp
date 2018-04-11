@@ -26,10 +26,10 @@
     <div id="service_minute_performance_container"></div>
 </div>
 
-<div id="sysyem_performance_list">
-    <div class="header" id="header">系统实时调用情况</div>
-    <p class="explain_p" id="time_tip"></p>
-    <div id="system_minute_performance_container"></div>
-</div>
+    <div id="sysyem_performance_list">
+        <div class="header" id="header">系统实时调用情况</div>
+        <p class="explain_p" id="time_tip"></p>
+        <div id="system_minute_performance_container"></div>
+    </div>
 </body>
 </html>

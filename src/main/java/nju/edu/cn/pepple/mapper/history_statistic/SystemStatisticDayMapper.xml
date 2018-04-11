@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nju.edu.cn.pepple.mapper.history_statistic.SystemStatisticDayMapper">
-  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.SystemStatisticVO">
+  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.ServiceStatisticVO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="system" jdbcType="VARCHAR" property="system" />
     <result column="date" jdbcType="DATE" property="date" />
@@ -22,6 +22,11 @@
     from system_statistic_day
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="getAllSystemStatistic" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * from system_statistic_day ORDER BY access_count DESC limit 10
+  </select>
+
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceStatisticVO">
     insert into system_statistic_day
     <trim prefix="(" suffix=")" suffixOverrides=",">

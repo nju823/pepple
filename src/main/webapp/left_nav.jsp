@@ -30,8 +30,22 @@
                         <li class="child child-open" id="realtime-monitor">
                             <span>实时性能</span>
                         </li>
-                        <li class="child" id="history">
+                    </ul>
+                </li>
+
+                <li class="parent parent-open" id="history-parent">
+                    <img class="icon" src="img/nav-monitor-icon.png">
+                    <span>历史分析</span>
+                    <img class="arrow" src="img/nav-right-icon.png">
+                    <ul id="history-subul" style="display: block;">
+                        <li class="child" id="history-monitor">
                             <span>历史性能</span>
+                        </li>
+                        <li class="child" id="system-invoke">
+                            <span>调用关系分析</span>
+                        </li>
+                        <li class="child" id="train">
+                            <span>调用链分析</span>
                         </li>
                     </ul>
                 </li>

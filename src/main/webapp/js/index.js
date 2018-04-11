@@ -28,4 +28,11 @@ $(document).ready(function(){
             $(".left-nav").css("height","2000px");
         });
     });
+
+    //历史性能
+    $(document).on("click","#history-monitor",function () {
+        $(".right-body").load("history.jsp",function(){
+            showAllSystemHistory();
+        });
+    });
 });
