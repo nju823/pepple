@@ -2,20 +2,26 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.1.xsd" >
 
 
     <context:component-scan base-package="nju.edu.cn.pepple.mapper" />
     <context:component-scan base-package="nju.edu.cn.pepple.controller" />
     <context:component-scan base-package="nju.edu.cn.pepple.service" />
     <context:component-scan base-package="nju.edu.cn.pepple.util" />
+    <task:annotation-driven scheduler="myScheduler"/>
     <!-- 开启注解 -->
     <mvc:annotation-driven />
+
+    <task:scheduler id="myScheduler" pool-size="5"/>
 
     <!--配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.0.xsd-->
 

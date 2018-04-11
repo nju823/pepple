@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.edu.cn.pepple.mapper.history_statistic.ServiceStatisticMapper">
+  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.ServiceStatisticVO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
+    <result column="system" jdbcType="VARCHAR" property="system" />
+    <result column="invoke_hour" jdbcType="INTEGER" property="hour" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="average_access_time" jdbcType="INTEGER" property="averageAccessTime" />
+    <result column="error_count" jdbcType="BIGINT" property="errorCount" />
+    <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
+    <result column="slow_count" jdbcType="BIGINT" property="slowCount" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="access_count" jdbcType="BIGINT" property="accessCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, service, system, invoke_hour, date, average_access_time, error_count, no_response_count, 
+    slow_count, add_time, access_count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from service_statistic_hour
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="getInvokedServices" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT DISTINCT service from service_statistic_hour WHERE `date`=#{date}
+  </select>
+
+  <select id="getInvokedSystem" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT DISTINCT `system` FROM service_statistic_hour WHERE `date`=#{date}
+  </select>
+
+  <select id="getStatistic" resultMap="BaseResultMap">
+    SELECT * from service_statistic_hour WHERE `date`=#{date} AND service=#{service}
+  </select>
+
+  <select id="getStatisticBySystem" resultMap="BaseResultMap">
+    SELECT * FROM service_statistic_hour WHERE `date`=#{date} AND system=#{system}
+  </select>
+</mapper>

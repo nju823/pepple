@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nju.edu.cn.pepple.mapper.history_statistic.ServiceChainStatisticDayMapper">
+  <resultMap id="BaseResultMap" type="nju.edu.cn.pepple.vo.ServiceChainStatisticVO">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
+    <result column="root_service" jdbcType="VARCHAR" property="rootService" />
+    <result column="parent_service" jdbcType="VARCHAR" property="parentService" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
+    <result column="access_count" jdbcType="INTEGER" property="accessCount" />
+    <result column="average_access_time" jdbcType="INTEGER" property="averageAccessTime" />
+    <result column="error_count" jdbcType="INTEGER" property="errorCount" />
+    <result column="no_response_count" jdbcType="INTEGER" property="noResponseCount" />
+    <result column="slow_count" jdbcType="INTEGER" property="slowCount" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <insert id="insert" parameterType="nju.edu.cn.pepple.vo.ServiceChainStatisticVO">
+    insert into service_chain_statistic_day (id, service, root_service, 
+      parent_service, date, target, 
+      access_count, average_access_time, error_count, 
+      no_response_count, slow_count
+      )
+    values (#{id,jdbcType=INTEGER}, #{service,jdbcType=VARCHAR}, #{rootService,jdbcType=VARCHAR}, 
+      #{parentService,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{target,jdbcType=VARCHAR}, 
+      #{accessCount,jdbcType=INTEGER}, #{averageAccessTime,jdbcType=INTEGER}, #{errorCount,jdbcType=INTEGER}, 
+      #{noResponseCount,jdbcType=INTEGER}, #{slowCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceChainStatisticVO">
+    insert into service_chain_statistic_day
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="service != null">
+        service,
+      </if>
+      <if test="rootService != null">
+        root_service,
+      </if>
+      <if test="parentService != null">
+        parent_service,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="target != null">
+        target,
+      </if>
+      <if test="accessCount != null">
+        access_count,
+      </if>
+      <if test="averageAccessTime != null">
+        average_access_time,
+      </if>
+      <if test="errorCount != null">
+        error_count,
+      </if>
+      <if test="noResponseCount != null">
+        no_response_count,
+      </if>
+      <if test="slowCount != null">
+        slow_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+      <if test="service != null">
+        #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="rootService != null">
+        #{rootService,jdbcType=VARCHAR},
+      </if>
+      <if test="parentService != null">
+        #{parentService,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="target != null">
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="accessCount != null">
+        #{accessCount,jdbcType=INTEGER},
+      </if>
+      <if test="averageAccessTime != null">
+        #{averageAccessTime,jdbcType=INTEGER},
+      </if>
+      <if test="errorCount != null">
+        #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="noResponseCount != null">
+        #{noResponseCount,jdbcType=INTEGER},
+      </if>
+      <if test="slowCount != null">
+        #{slowCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
