@@ -16,6 +16,8 @@
     <script src="js/jquery.datetimepicker.full.js"></script>
     <script src="http://malsup.github.io/jquery.form.js"></script>
     <script src="js/realtimeLogList.js"></script>
+    <script src="js/realtimePerformance.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.0.4/echarts.min.js"></script>
     <title>登录</title>
 </head>
 <body>

@@ -24,10 +24,10 @@
             <ul>
                 <li class="parent parent-open" id="monitor-parent">
                     <img class="icon" src="img/nav-monitor-icon.png">
-                    <span>性能监控</span>
+                    <span>系统监控</span>
                     <img class="arrow" src="img/nav-right-icon.png">
                     <ul id="monitor-subul" style="display: block;">
-                        <li class="child child-open" id="ontime-monitor-child">
+                        <li class="child child-open" id="realtime-monitor">
                             <span>实时性能</span>
                         </li>
                         <li class="child" id="history">
@@ -41,7 +41,7 @@
                     <span>日志记录</span>
                     <img class="arrow" src="img/nav-down-icon.png">
                     <ul id="log-subul">
-                        <li class="child">
+                        <li class="child" id="realtime-log">
                             <span>实时日志</span>
                         </li>
                         <li class="child">

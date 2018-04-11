@@ -11,8 +11,26 @@ p{
 	font-size:14px!important;
 }
 
+.hr{
+	height: 1px;
+	width: 95%;
+	background-color: rgba(0, 0, 0, 0.13);
+	margin: 20px 0;
+}
+
+.header{
+	font-size: 32px;
+	font-weight: 300;
+	margin-bottom: 10px;
+}
+
 .explain_p{
 	color: #cccccc;
+}
+
+.number_p{
+	font-size: 32px !important;
+	font-weight: 300 !important;
 }
 
 .left-nav{
@@ -25,7 +43,7 @@ p{
 	display: inline-block;
 	width: 86.4%;
 	min-width: 1000px;
-	height:100%;
+	min-height:1000px;
 	background-color: #F6F6F6;
 	vertical-align: top;
 	padding: 30px 20px;

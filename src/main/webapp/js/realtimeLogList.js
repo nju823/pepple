@@ -16,8 +16,6 @@ function loadSearchInfo(){
 
     typeInfo = ["正常日志","异常日志"];
 
-    $('.some_class').datetimepicker();
-
     for(var i =0;i<systemInfo.length;i++){
         $("#system_search_contianer").append("<div class='checkbox_container'><input class='checkbox' type='checkbox' id='system_"+i+"'>"+systemInfo[i]+"</div>");
     }

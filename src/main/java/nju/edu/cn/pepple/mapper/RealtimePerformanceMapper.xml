@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nju.edu.cn.pepple.mapper.RealtimePerformanceMapper">
+
+    <resultMap id="ServiceMinutePerformanceList" type="nju.edu.cn.pepple.model.ServiceMinutePerformance">
+
+    </resultMap>
+
+    <resultMap id="SystemMinutePerformanceList" type="nju.edu.cn.pepple.model.SystemMinutePerformance">
+
+    </resultMap>
+
+    <select id="getServiceMinutePerformanceBySystemName" parameterType="java.lang.String" resultMap="ServiceMinutePerformanceList">
+        SELECT * from realtime_service_analyse_minute where system=#{systemName} AND insertTime = (SELECT MAX(insertTime) FROM realtime_service_analyse_minute)
+    </select>
+
+    <select id="getAllSystemMinutePerformance" resultMap="SystemMinutePerformanceList">
+        SELECT * from realtime_system_analyse_minute where insertTime = (SELECT MAX(insertTime) FROM realtime_system_analyse_minute) ORDER BY invokeTime DESC
+    </select>
+
+    <select id="getSystemDayPerformacneBySystemName" parameterType="java.lang.String" resultMap="SystemMinutePerformanceList">
+       SELECT system AS systemName,SUM(invokeTime) AS invokeTime,SUM(errorTime) AS errortime,AVG(errorPercentage) AS errorPercentage,insertTime from realtime_service_analyse_minute where system=#{0} AND (insertTime BETWEEN #{1} AND #{2}) GROUP BY insertTime
+    </select>
+
+    <select id="getServiceDayPerformanceByServiceName" parameterType="java.lang.String" resultMap="ServiceMinutePerformanceList">
+       SELECT * from realtime_service_analyse_minute WHERE serviceName = #{0} AND (insertTime BETWEEN #{1} AND #{2})
+    </select>
+</mapper>

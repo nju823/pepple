@@ -1,0 +1,82 @@
+
+.service_performance{
+    margin:15px;
+    display: inline-block;
+    width: 300px;
+    height: 140px;
+    text-align: center;
+}
+
+.system_performance{
+    margin:15px;
+    display: inline-block;
+    width: 430px;
+    height: 160px;
+    text-align: center;
+}
+
+.system_performance:hover{
+    border: 1px solid #2494F2;
+}
+
+.service_performance:hover{
+    border: 1px solid #2494F2;
+}
+
+.system_name{
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+    text-align: left;
+    line-height: 60px;
+}
+
+.system_performance_content_right{
+    width: 48%;
+    display: inline-block;
+    vertical-align: super;
+}
+
+.system_performance_content_left{
+    width: 48%;
+    display: inline-block;
+    vertical-align: super;
+}
+
+.split_line{
+    display: inline-block;
+    width: 1px;
+    margin: 13px 0;
+    height: 55px;
+    background-color: rgba(0, 0, 0, 0.13);
+}
+
+.service_performance_name{
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+    text-align: left;
+}
+
+.service_performance_text_left{
+     width: 49%;
+     text-align: left;
+    display: inline-block;
+ }
+
+.service_performance_text_right{
+    width: 49%;
+    text-align: right;
+    display: inline-block;
+}
+
+#system_day_chart{
+    width: 100%;
+    height: 300px;
+}
+
+#service_performance_tip{
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
