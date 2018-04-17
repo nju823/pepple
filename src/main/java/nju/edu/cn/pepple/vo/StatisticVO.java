@@ -16,13 +16,19 @@ public class StatisticVO {
     protected Integer slowCount;
 
     public void add(StatisticVO statisticVO){
-        averageAccessTime=(averageAccessTime*accessCount+statisticVO.averageAccessTime*statisticVO.accessCount)
-                /(accessCount+statisticVO.accessCount);
+        calculateAverage(statisticVO);
+
         accessCount+=statisticVO.accessCount;
         errorCount+=statisticVO.errorCount;
         noResponseCount+=statisticVO.noResponseCount;
         slowCount+=statisticVO.slowCount;
 
+    }
+
+    private void calculateAverage(StatisticVO statisticVO){
+        double countSum=accessCount+statisticVO.accessCount;
+        double averageAccessTime=this.averageAccessTime*(accessCount/countSum)+statisticVO.averageAccessTime*(statisticVO.accessCount/countSum);
+        this.averageAccessTime=(int)averageAccessTime;
     }
 
 

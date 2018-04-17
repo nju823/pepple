@@ -1,5 +1,6 @@
 package nju.edu.cn.pepple.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,12 +18,40 @@ public class TimeUtil {
 
     private static final int ONE_DAY=1000*60*60*24;
 
+    private static final long ONE_MONTH=1000l*60*60*24*30;
+
 
     public static String yesterday(){
         Date date=new Date();
         date.setTime(date.getTime()-ONE_DAY);
         SimpleDateFormat dateFormat=new SimpleDateFormat(DATE_FOMART);
         return dateFormat.format(date);
+    }
+
+    public static String lastWeek(String day){
+        SimpleDateFormat dateFormat=new SimpleDateFormat(DATE_FOMART);
+        Date date= null;
+        try {
+            date = dateFormat.parse(day);
+            date.setTime(date.getTime()-ONE_DAY*7);
+            return dateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String lastMonth(String day){
+        SimpleDateFormat dateFormat=new SimpleDateFormat(DATE_FOMART);
+        Date date= null;
+        try {
+            date = dateFormat.parse(day);
+            date.setTime(date.getTime()-ONE_MONTH);
+            return dateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -69,7 +98,7 @@ public class TimeUtil {
     }
 
     public static void main(String[] args){
-        System.out.println(yesterday());
+        System.out.println(lastWeek("2017-08-09")+" "+lastMonth("2019-09-09"));
 
     }
 

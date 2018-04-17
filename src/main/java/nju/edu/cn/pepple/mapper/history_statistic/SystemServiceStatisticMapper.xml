@@ -10,7 +10,7 @@
     <result column="error_count" jdbcType="BIGINT" property="errorCount" />
     <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
     <result column="slow_count" jdbcType="BIGINT" property="slowCount" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="add_time" jdbcType="Date" property="addTime" />
     <result column="access_count" jdbcType="BIGINT" property="accessCount" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -22,6 +22,10 @@
     <include refid="Base_Column_List" />
     from system_statistic_hour
     where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="getHourStatistic" resultMap="BaseResultMap">
+    SELECT * from system_statistic_hour WHERE `system`=#{sysName} AND `date`=#{date}
   </select>
 
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceStatisticVO">

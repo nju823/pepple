@@ -3,6 +3,8 @@ package nju.edu.cn.pepple.service.history_statistic.task;
 import nju.edu.cn.pepple.mapper.history_statistic.SystemInvokeCountDayMapper;
 import nju.edu.cn.pepple.mapper.history_statistic.SystemInvokeCountMapper;
 import nju.edu.cn.pepple.util.TimeUtil;
+import nju.edu.cn.pepple.vo.InvokeCountVO;
+import nju.edu.cn.pepple.vo.InvokeKey;
 import nju.edu.cn.pepple.vo.ServiceInvokeCountVO;
 import nju.edu.cn.pepple.vo.SystemInvokeCountVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +29,16 @@ public class SystemInvokeCountTask {
 
     @Scheduled(cron = "0 0 4 * * ?")
     public void run(){
-        String date= "2018-03-31";
+        String date= TimeUtil.yesterday();
         List<String> systems=hourMapper.getInvokedSystem(date);
         for(String system:systems){
             List<SystemInvokeCountVO> countVOS=hourMapper.getStatistic(date,system);
-            Map<String,SystemInvokeCountVO> targetMap=new HashMap<String, SystemInvokeCountVO>();
+            Map<InvokeKey,SystemInvokeCountVO> targetMap=new HashMap<InvokeKey, SystemInvokeCountVO>();
             for(SystemInvokeCountVO countVO:countVOS){
-                SystemInvokeCountVO sum=targetMap.get(countVO.getSourceSystem());
+                InvokeKey key=new InvokeKey(countVO.getSourceSystem(),countVO.getTargetSystem());
+                SystemInvokeCountVO sum=targetMap.get(key);
                 if(sum==null)
-                    targetMap.put(countVO.getSourceSystem(),countVO);
+                    targetMap.put(key,countVO);
                 else
                     sum.setInvokeCount(sum.getInvokeCount()+countVO.getInvokeCount());
             }

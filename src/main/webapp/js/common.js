@@ -54,3 +54,10 @@ $(document).on("click",".checkbox",function () {
         $(this).attr("checked",true);
     }
 });
+
+function yesteday() {
+    var date = new Date();
+    date.setDate(date.getDate() - 2);
+    var result=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+    return result;
+}

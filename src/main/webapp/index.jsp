@@ -13,11 +13,12 @@
     <script src="js/index.js"></script>
     <script src="js/common.js"></script>
     <script src="js/left_nav.js"></script>
-    <script src="js/history.js"></script>
     <script src="js/jquery.datetimepicker.full.js"></script>
     <script src="http://malsup.github.io/jquery.form.js"></script>
     <script src="js/realtimeLogList.js"></script>
     <script src="js/realtimePerformance.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/history_system_statistic.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.0.4/echarts.min.js"></script>
     <title>登录</title>
 </head>

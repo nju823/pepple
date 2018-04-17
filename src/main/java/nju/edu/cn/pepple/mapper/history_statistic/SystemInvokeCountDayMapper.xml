@@ -19,6 +19,14 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
+  <select id="getInvokeSystemCount" resultMap="BaseResultMap">
+    SELECT * FROM system_invoke_count_day WHERE target_system=#{target} AND `invoke_date`=#{date}
+  </select>
+
+  <select id="getTargetSystemCount" resultMap="BaseResultMap">
+    SELECT * FROM system_invoke_count_day WHERE source_system=#{source} AND `invoke_date`=#{date}
+  </select>
+
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
     insert into system_invoke_count_day
     <trim prefix="(" suffix=")" suffixOverrides=",">

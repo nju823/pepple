@@ -1,6 +1,9 @@
 package nju.edu.cn.pepple.service.history_statistic;
 
+import nju.edu.cn.pepple.mapper.history_statistic.ServiceStatisticMapper;
+import nju.edu.cn.pepple.mapper.history_statistic.SystemServiceStatisticMapper;
 import nju.edu.cn.pepple.mapper.history_statistic.SystemStatisticDayMapper;
+import nju.edu.cn.pepple.util.TimeUtil;
 import nju.edu.cn.pepple.vo.ServiceStatisticVO;
 import nju.edu.cn.pepple.vo.SystemSimpleInfoVO;
 import nju.edu.cn.pepple.vo.SystemStatisticVO;
@@ -19,6 +22,9 @@ public class HistoryStatisticServiceImpl implements HistoryStatisticService{
     @Autowired
     private SystemStatisticDayMapper dayMapper;
 
+    @Autowired
+    private SystemServiceStatisticMapper hourMapper;
+
     @Override
     public List<SystemSimpleInfoVO> getAllSystemStatistic(String date) {
         List<ServiceStatisticVO> statisticVOS=dayMapper.getAllSystemStatistic(date);
@@ -34,5 +40,27 @@ public class HistoryStatisticServiceImpl implements HistoryStatisticService{
             simpleInfos.add(simpleInfo);
         }
         return simpleInfos;
+    }
+
+    @Override
+    public ServiceStatisticVO getSystemStatistic(String date, String sysName) {
+        return dayMapper.getSystemStatistic(sysName,date);
+    }
+
+    @Override
+    public List<ServiceStatisticVO> getHourSystemStatistic(String date, String sysName) {
+        return hourMapper.getHourStatistic(sysName,date);
+    }
+
+    @Override
+    public List<ServiceStatisticVO> getWeekSystemStatistic(String date, String sysName) {
+        String lastWeek= TimeUtil.lastWeek(date);
+        return dayMapper.getSystemStatisticWeek(sysName,lastWeek,date);
+    }
+
+    @Override
+    public List<ServiceStatisticVO> getMonthSystemStatistic(String date, String sysName) {
+        String lastWeek= TimeUtil.lastMonth(date);
+        return dayMapper.getSystemStatisticWeek(sysName,lastWeek,date);
     }
 }

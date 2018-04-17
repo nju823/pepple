@@ -24,7 +24,15 @@
   </select>
 
   <select id="getAllSystemStatistic" parameterType="java.lang.String" resultMap="BaseResultMap">
-    SELECT * from system_statistic_day ORDER BY access_count DESC limit 10
+    SELECT * from system_statistic_day where `date`=#{date} ORDER BY access_count DESC limit 10
+  </select>
+
+  <select id="getSystemStatistic" resultMap="BaseResultMap">
+    SELECT * FROM system_statistic_day WHERE `date`=#{date} AND `system`=#{sysName}
+  </select>
+
+  <select id="getSystemStatisticWeek" resultMap="BaseResultMap">
+    SELECT * FROM system_statistic_day WHERE `system`=#{sysName} AND `date`&gt;=#{start} AND `date`&lt;=#{end}
   </select>
 
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceStatisticVO">
