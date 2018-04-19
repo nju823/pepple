@@ -6,7 +6,7 @@
     <result column="service" jdbcType="VARCHAR" property="service" />
     <result column="system" jdbcType="VARCHAR" property="system" />
     <result column="date" jdbcType="DATE" property="date" />
-    <result column="average_access_time" jdbcType="INTEGER" property="averageAccessTime" />
+    <result column="average_access_time" jdbcType="DOUBLE" property="averageAccessTime" />
     <result column="error_count" jdbcType="BIGINT" property="errorCount" />
     <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
     <result column="slow_count" jdbcType="BIGINT" property="slowCount" />
@@ -22,6 +22,10 @@
     <include refid="Base_Column_List" />
     from service_statistic_day
     where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="getSystemServiceStatistic" resultMap="BaseResultMap">
+    SELECT * from service_statistic_day where `date`=#{date} AND `system`=#{sysName}
   </select>
 
   <insert id="insert" parameterType="nju.edu.cn.pepple.vo.ServiceStatisticVO">
@@ -76,7 +80,7 @@
         #{date,jdbcType=DATE},
       </if>
       <if test="averageAccessTime != null">
-        #{averageAccessTime,jdbcType=INTEGER},
+        #{averageAccessTime,jdbcType=DOUBLE},
       </if>
       <if test="errorCount != null">
         #{errorCount,jdbcType=BIGINT},

@@ -1,6 +1,6 @@
 package nju.edu.cn.pepple.controller.history;
 
-import nju.edu.cn.pepple.service.history_statistic.HistoryStatisticService;
+import nju.edu.cn.pepple.service.history_statistic.SystemStatisticService;
 import nju.edu.cn.pepple.util.TimeUtil;
 import nju.edu.cn.pepple.vo.ServiceStatisticVO;
 import nju.edu.cn.pepple.vo.SystemSimpleInfoVO;
@@ -16,10 +16,10 @@ import java.util.List;
  * Created by cong on 2018-04-11.
  */
 @Controller
-public class HistoryStatisticController {
+public class SystemStatisticController {
 
     @Autowired
-    private HistoryStatisticService historyStatisticService;
+    private SystemStatisticService historyStatisticService;
 
     /**
      * 获取所有系统的概览统计信息，最多返回十个
@@ -29,7 +29,6 @@ public class HistoryStatisticController {
     @ResponseBody
     public  List<SystemSimpleInfoVO> getAllSystemStatistic(){
         String date= TimeUtil.yesterday();
-        date="2018-04-15";
         return historyStatisticService.getAllSystemStatistic(date);
     }
 

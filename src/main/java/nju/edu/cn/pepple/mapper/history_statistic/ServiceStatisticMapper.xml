@@ -7,7 +7,7 @@
     <result column="system" jdbcType="VARCHAR" property="system" />
     <result column="invoke_hour" jdbcType="INTEGER" property="hour" />
     <result column="date" jdbcType="DATE" property="date" />
-    <result column="average_access_time" jdbcType="INTEGER" property="averageAccessTime" />
+    <result column="average_access_time" jdbcType="DOUBLE" property="averageAccessTime" />
     <result column="error_count" jdbcType="BIGINT" property="errorCount" />
     <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
     <result column="slow_count" jdbcType="BIGINT" property="slowCount" />

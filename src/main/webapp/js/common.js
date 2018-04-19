@@ -57,7 +57,7 @@ $(document).on("click",".checkbox",function () {
 
 function yesteday() {
     var date = new Date();
-    date.setDate(date.getDate() - 2);
+    date.setDate(date.getDate() - 1);
     var result=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
     return result;
 }

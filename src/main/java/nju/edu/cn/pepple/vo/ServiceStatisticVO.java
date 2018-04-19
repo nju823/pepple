@@ -1,6 +1,9 @@
 package nju.edu.cn.pepple.vo;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 public class ServiceStatisticVO  extends StatisticVO implements Serializable {
@@ -15,6 +18,18 @@ public class ServiceStatisticVO  extends StatisticVO implements Serializable {
     private int hour;
 
     private Date addTime;
+
+    public ServiceStatisticVO copy(){
+        ServiceStatisticVO copy=new ServiceStatisticVO();
+        try {
+            BeanUtils.copyProperties(copy,this);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return copy;
+    }
 
     public int getHour() {
         return hour;

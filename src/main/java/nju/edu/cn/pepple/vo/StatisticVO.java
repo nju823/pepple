@@ -1,19 +1,21 @@
 package nju.edu.cn.pepple.vo;
 
+import nju.edu.cn.pepple.util.ScaleUtil;
+
 /**
  * Created by cong on 2018-04-02.
  */
 public class StatisticVO {
 
-    protected Integer accessCount;
+    protected Integer accessCount=0;
 
-    protected Integer averageAccessTime;
+    protected double averageAccessTime=0;
 
-    protected Integer errorCount;
+    protected Integer errorCount=0;
 
-    protected Integer noResponseCount;
+    protected Integer noResponseCount=0;
 
-    protected Integer slowCount;
+    protected Integer slowCount=0;
 
     public void add(StatisticVO statisticVO){
         calculateAverage(statisticVO);
@@ -27,8 +29,20 @@ public class StatisticVO {
 
     private void calculateAverage(StatisticVO statisticVO){
         double countSum=accessCount+statisticVO.accessCount;
-        double averageAccessTime=this.averageAccessTime*(accessCount/countSum)+statisticVO.averageAccessTime*(statisticVO.accessCount/countSum);
-        this.averageAccessTime=(int)averageAccessTime;
+        averageAccessTime=this.averageAccessTime*(accessCount/countSum)+statisticVO.averageAccessTime*(statisticVO.accessCount/countSum);
+        averageAccessTime= ScaleUtil.scale(averageAccessTime,2);
+    }
+
+    public static void main(String[] args){
+        StatisticVO v1=new StatisticVO();
+        v1.setAccessCount(200);
+        v1.setAverageAccessTime(11);
+        StatisticVO v2=new StatisticVO();
+        v2.setAccessCount(45673);
+        v2.setAverageAccessTime(20);
+        v1.add(v2);
+        System.out.println(v1.averageAccessTime);
+
     }
 
 
@@ -40,11 +54,11 @@ public class StatisticVO {
         this.accessCount = accessCount;
     }
 
-    public Integer getAverageAccessTime() {
+    public double getAverageAccessTime() {
         return averageAccessTime;
     }
 
-    public void setAverageAccessTime(Integer averageAccessTime) {
+    public void setAverageAccessTime(double averageAccessTime) {
         this.averageAccessTime = averageAccessTime;
     }
 

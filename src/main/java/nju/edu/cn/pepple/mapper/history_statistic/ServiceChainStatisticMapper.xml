@@ -10,7 +10,7 @@
     <result column="date" jdbcType="DATE" property="date" />
     <result column="target" jdbcType="VARCHAR" property="target" />
     <result column="access_count" jdbcType="BIGINT" property="accessCount" />
-    <result column="average_access_time" jdbcType="BIGINT" property="averageAccessTime" />
+    <result column="average_access_time" jdbcType="DOUBLE" property="averageAccessTime" />
     <result column="error_count" jdbcType="BIGINT" property="errorCount" />
     <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
     <result column="slow_count" jdbcType="BIGINT" property="slowCount" />

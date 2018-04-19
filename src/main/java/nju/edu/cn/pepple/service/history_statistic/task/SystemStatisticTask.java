@@ -42,13 +42,13 @@ public class SystemStatisticTask {
             List<ServiceStatisticVO> statisticVOs=hourMapper.getStatisticBySystem(date,system);
             for(ServiceStatisticVO statisticVO:statisticVOs){
                 if(sum==null)
-                    sum=statisticVO;
+                    sum=statisticVO.copy();
                 else
                     sum.add(statisticVO);
 
                 ServiceStatisticVO hourSum=hourMap.get(statisticVO.getHour());
                 if(hourSum==null)
-                    hourMap.put(statisticVO.getHour(),statisticVO);
+                    hourMap.put(statisticVO.getHour(),statisticVO.copy());
                 else
                     hourSum.add(statisticVO);
             }

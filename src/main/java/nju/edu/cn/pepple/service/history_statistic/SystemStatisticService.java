@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by cong on 2018-04-11.
  */
-public interface HistoryStatisticService {
+public interface SystemStatisticService {
 
     /**
      * 获取所有系统的简略信息，最多十个

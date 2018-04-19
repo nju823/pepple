@@ -86,11 +86,11 @@ public class ServiceChainStatisticVO extends StatisticVO implements Serializable
         this.accessCount = accessCount;
     }
 
-    public Integer getAverageAccessTime() {
+    public double getAverageAccessTime() {
         return averageAccessTime;
     }
 
-    public void setAverageAccessTime(Integer averageAccessTime) {
+    public void setAverageAccessTime(double averageAccessTime) {
         this.averageAccessTime = averageAccessTime;
     }
 

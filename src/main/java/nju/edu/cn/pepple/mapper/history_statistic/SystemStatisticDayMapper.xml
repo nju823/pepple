@@ -5,7 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="system" jdbcType="VARCHAR" property="system" />
     <result column="date" jdbcType="DATE" property="date" />
-    <result column="average_access_time" jdbcType="INTEGER" property="averageAccessTime" />
+    <result column="average_access_time" jdbcType="DOUBLE" property="averageAccessTime" />
     <result column="error_count" jdbcType="BIGINT" property="errorCount" />
     <result column="no_response_count" jdbcType="BIGINT" property="noResponseCount" />
     <result column="slow_count" jdbcType="BIGINT" property="slowCount" />
@@ -71,7 +71,7 @@
         #{date,jdbcType=DATE},
       </if>
       <if test="averageAccessTime != null">
-        #{averageAccessTime,jdbcType=INTEGER},
+        #{averageAccessTime,jdbcType=DOUBLE},
       </if>
       <if test="errorCount != null">
         #{errorCount,jdbcType=BIGINT},
