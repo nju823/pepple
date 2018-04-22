@@ -1,5 +1,6 @@
 package nju.edu.cn.pepple.service.history_statistic;
 
+import nju.edu.cn.pepple.dto.ResponseDto;
 import nju.edu.cn.pepple.mapper.history_statistic.SystemServiceStatisticMapper;
 import nju.edu.cn.pepple.mapper.history_statistic.SystemStatisticDayMapper;
 import nju.edu.cn.pepple.util.TimeUtil;
@@ -60,5 +61,13 @@ public class SystemStatisticServiceImpl implements SystemStatisticService {
     public List<ServiceStatisticVO> getMonthSystemStatistic(String date, String sysName) {
         String lastWeek= TimeUtil.lastMonth(date);
         return dayMapper.getSystemStatisticWeek(sysName,lastWeek,date);
+    }
+
+    @Override
+    public ResponseDto hasStatistic(String date, String sysName) {
+        ServiceStatisticVO vo=dayMapper.getSystemStatistic(sysName,date);
+        if(vo==null)
+            return ResponseDto.buildFailure("缺少数据");
+        return ResponseDto.buildSuccess();
     }
 }

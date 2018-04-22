@@ -14,7 +14,13 @@ public interface ServiceStatisticDayMapper {
 
     ServiceStatisticVO selectByPrimaryKey(Long id);
 
+    List<ServiceStatisticVO> getStatisticBySystem(@Param("date") String date,@Param("system") String system);
+
     List<ServiceStatisticVO> getSystemServiceStatistic(@Param("sysName") String sysName,@Param("date") String date);
 
+    ServiceStatisticVO getServiceStatistic(@Param("service") String service,@Param("date") String date);
+
+    List<ServiceStatisticVO> getServiceStatisticBetween(@Param("service") String service,
+                                                 @Param("start") String start,@Param("end") String end);
 
 }

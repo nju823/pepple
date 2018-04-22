@@ -1,5 +1,6 @@
 package nju.edu.cn.pepple.controller.history;
 
+import nju.edu.cn.pepple.dto.ResponseDto;
 import nju.edu.cn.pepple.service.history_statistic.SystemStatisticService;
 import nju.edu.cn.pepple.util.TimeUtil;
 import nju.edu.cn.pepple.vo.ServiceStatisticVO;
@@ -54,6 +55,12 @@ public class SystemStatisticController {
     @ResponseBody
     public List<ServiceStatisticVO> getMonthStatistic(@PathVariable("sysName") String sysName,@PathVariable String date){
         return historyStatisticService.getMonthSystemStatistic(date,sysName);
+    }
+
+    @RequestMapping("/history/statistic/has/{sysName}/{date}")
+    @ResponseBody
+    public ResponseDto hasStatistic(@PathVariable("sysName") String sysName,@PathVariable String date){
+        return historyStatisticService.hasStatistic(date,sysName);
     }
 
 }

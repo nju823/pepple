@@ -28,6 +28,18 @@
     SELECT * from service_statistic_day where `date`=#{date} AND `system`=#{sysName}
   </select>
 
+  <select id="getServiceStatistic" resultMap="BaseResultMap">
+    SELECT * FROM service_statistic_day WHERE `date`=#{date} AND `service`=#{service}
+  </select>
+
+  <select id="getServiceStatisticBetween" resultMap="BaseResultMap">
+    SELECT * FROM service_statistic_day WHERE `service`=#{service} AND `date`&gt;=#{start} AND `date`&lt;=#{end}
+  </select>
+
+  <select id="getStatisticBySystem" resultMap="BaseResultMap">
+    SELECT * FROM service_statistic_day WHERE `date`=#{date} AND system=#{system}
+  </select>
+
   <insert id="insert" parameterType="nju.edu.cn.pepple.vo.ServiceStatisticVO">
     insert into service_statistic_day (id, service, system, 
       date, average_access_time, error_count, 

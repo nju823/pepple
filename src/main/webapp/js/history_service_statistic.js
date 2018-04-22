@@ -1,26 +1,24 @@
-
-var systemName;
+var serviceName;
 var currentDate;
-function loadData(sysName,date){
-    systemName=sysName;
+function loadServiceData(service,date){
+    serviceName=service;
     currentDate=date;
-    dayInfo(sysName,date);
-    hourStatistic(sysName,date);
-    sourceSystem(sysName,date);
-    targetSystem(sysName,date);
-    weekAccess(sysName,date);
-    monthAccess(sysName,date);
-    serviceList(sysName,date);
+    serviceDayInfo(service,date);
+    serviceHourStatistic(service,date);
+    sourceService(service,date);
+    targetService(service,date);
+    serviceWeekAccess(service,date);
+    serviceMonthAccess(service,date);
 }
 
-function searchByDate() {
+function searchServiceByDate() {
     var searchDate=$("#searchDate").val();
 
-    var url="/history/statistic/has/"+systemName+"/"+searchDate;
+    var url="/history/service/statistic/has/"+serviceName+"/"+searchDate;
     submitRequest("GET",url,"",false,
         function (data) {
             if(data.success){
-                loadData(systemName,searchDate);
+                loadServiceData(serviceName,searchDate);
             }else{
                 alert("暂无数据")
             }
@@ -31,20 +29,13 @@ function searchByDate() {
 
 }
 
-function searchService() {
+function searchServices() {
     var service=$("#serviceName").val();
     var url="/history/service/statistic/has/"+service+"/"+currentDate;
     submitRequest("GET",url,"",false,
         function (data) {
             if(data.success){
-                $(".right-body").load("history_service_statistic.jsp",function(){
-                    loadServiceData(service,currentDate);
-                    $('.some_class').datetimepicker({
-                        timepicker:false,
-                        lang:"ch",
-                        format:"Y-m-d"
-                    });
-                });
+                loadServiceData(service,currentDate);
             }else{
                 alert("暂无数据")
             }
@@ -53,8 +44,8 @@ function searchService() {
         })
 }
 
-function dayInfo(sysName,date) {
-    var url="/history/statistic/"+sysName+"/"+date;
+function serviceDayInfo(service,date) {
+    var url="/history/service/statistic/"+service+"/"+date;
     submitRequest("GET",url,"",false,
         function (msg) {
             $("#access_count").text(msg.accessCount);
@@ -64,12 +55,12 @@ function dayInfo(sysName,date) {
         },function () {
 
         });
-    
+
 }
 
 //基本统计
-function hourStatistic(sysName,date) {
-    var url="/history/statistic/hour/"+sysName+"/"+date;
+function serviceHourStatistic(service,date) {
+    var url="/history/service/statistic/hour/"+service+"/"+date;
     submitRequest("GET",url,"",false,
         function (data) {
             // 基于准备好的dom，初始化echarts实例
@@ -149,7 +140,7 @@ function hourStatistic(sysName,date) {
 
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
-            hourPercent(data)
+            serviceHourPercent(data)
         },function () {
 
         });
@@ -157,8 +148,8 @@ function hourStatistic(sysName,date) {
 
 }
 
-function sourceSystem(sysName,date) {
-    var url="/count/source/"+sysName+"/"+date;
+function sourceService(service,date) {
+    var url="/count/service/source/"+service+"/"+date;
     submitRequest("GET",url,"",false,
         function (data) {
             // 基于准备好的dom，初始化echarts实例
@@ -168,15 +159,15 @@ function sourceSystem(sysName,date) {
             for(var i=0;i<data.length;i++){
                 var statistic=data[i];
                 series.push({
-                    name:statistic.sourceSystem,
-                    value:statistic.invokeCount
+                    name:statistic.source,
+                    value:statistic.count
                 })
             }
 
             // 指定图表的配置项和数据
             var option = {
                 title: {
-                    text: '访问系统占比'
+                    text: '访问接口占比'
                 },
 
                 tooltip : {
@@ -184,7 +175,7 @@ function sourceSystem(sysName,date) {
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 series: [ {
-                    name: '姓名',
+                    name: '接口',
                     type: 'pie',
                     radius : '70%',
                     center: ['50%', '50%'],
@@ -206,8 +197,8 @@ function sourceSystem(sysName,date) {
         });
 }
 
-function targetSystem(sysName,date) {
-    var url="/count/target/"+sysName+"/"+date;
+function targetService(service,date) {
+    var url="/count/service/target/"+service+"/"+date;
     submitRequest("GET",url,"",false,
         function (data) {
             // 基于准备好的dom，初始化echarts实例
@@ -217,15 +208,15 @@ function targetSystem(sysName,date) {
             for(var i=0;i<data.length;i++){
                 var statistic=data[i];
                 series.push({
-                    name:statistic.targetSystem,
-                    value:statistic.invokeCount
+                    name:statistic.target,
+                    value:statistic.count
                 })
             }
 
             // 指定图表的配置项和数据
             var option = {
                 title: {
-                    text: '依赖系统占比'
+                    text: '依赖接口占比'
                 },
 
                 tooltip : {
@@ -233,7 +224,7 @@ function targetSystem(sysName,date) {
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 series: [ {
-                    name: '姓名',
+                    name: '接口',
                     type: 'pie',
                     radius : '70%',
                     center: ['50%', '50%'],
@@ -255,7 +246,7 @@ function targetSystem(sysName,date) {
         });
 }
 
-function hourPercent(data) {
+function serviceHourPercent(data) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('hour-pie'));
 
@@ -298,8 +289,8 @@ function hourPercent(data) {
     myChart.setOption(option);
 }
 
-function weekAccess(sysName,date){
-    var url="/history/statistic/week/"+sysName+"/"+date;
+function serviceWeekAccess(service,date){
+    var url="/history/service/statistic/week/"+service+"/"+date;
     submitRequest("GET",url,"",false,
         function (data) {
             // 基于准备好的dom，初始化echarts实例
@@ -373,13 +364,13 @@ function weekAccess(sysName,date){
 
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
-            weekSlow(days,slowCounts);
+            serviceWeekSlow(days,slowCounts);
         },function () {
 
         });
 }
 
-function weekSlow(days,slowCounts) {
+function serviceWeekSlow(days,slowCounts) {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('week-slow'));
 
@@ -424,8 +415,8 @@ function weekSlow(days,slowCounts) {
     myChart.setOption(option);
 }
 
-function monthAccess(sysName,date) {
-    var url="/history/statistic/month/"+sysName+"/"+date;
+function serviceMonthAccess(service,date) {
+    var url="/history/service/statistic/month/"+service+"/"+date;
     submitRequest("GET",url,"",false,
         function (data) {
             // 基于准备好的dom，初始化echarts实例
@@ -496,62 +487,5 @@ function monthAccess(sysName,date) {
         },function () {
 
         });
-}
 
-
-//
-
-function serviceList(sysName,date) {
-    $.jgrid.defaults.styleUI = 'Bootstrap';
-    var url="/history/service/statistic/system/"+sysName+"/"+date
-    submitRequest("GET",url,"",false,
-        function (data) {
-
-        table(data)
-
-        },function () {
-
-        })
-}
-
-function table(data) {
-    // Configuration for jqGrid Example 1
-    $("#service_list_table").jqGrid({
-        data: data,
-        datatype: "local",
-        height: 250,
-        autowidth: true,
-        shrinkToFit: true,
-        rowNum: 14,
-        rowList: [10, 20, 30],
-        colNames: ['接口名称', '访问量', '平均响应时间', '超时次数'],
-        colModel: [
-            {
-                name: 'service',
-                index: 'service',
-                width: 150
-            },
-            {
-                name: 'accessCount',
-                index: 'accessCount',
-                width: 60,
-                sorttype: "int"
-            },
-            {
-                name: 'averageAccessTime',
-                index: 'averageAccessTime',
-                width: 60
-            },
-            {
-                name: 'slowCount',
-                index: 'slowCount',
-                width: 60,
-                sorttype: "int"
-            }
-        ],
-        pager: "#service_list",
-        viewrecords: true,
-        caption: "接口列表",
-        hidegrid: false
-    });
 }

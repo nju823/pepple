@@ -14,6 +14,15 @@
   <sql id="Base_Column_List">
     id, source, target, service, parent_service, date, count, add_time
   </sql>
+
+  <select id="getInvokeServiceCount" resultMap="BaseResultMap">
+    SELECT * FROM service_invoke_count_day where service=#{service} AND `date`=#{date}
+  </select>
+
+  <select id="getTargetServiceCount" resultMap="BaseResultMap">
+    SELECT * FROM service_invoke_count_day where parent_service=#{service} AND `date`=#{date}
+  </select>
+
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.ServiceInvokeCountVO">
     insert into service_invoke_count_day
     <trim prefix="(" suffix=")" suffixOverrides=",">

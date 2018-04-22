@@ -1,5 +1,6 @@
 package nju.edu.cn.pepple.service.history_statistic;
 
+import nju.edu.cn.pepple.dto.ResponseDto;
 import nju.edu.cn.pepple.vo.ServiceStatisticVO;
 import nju.edu.cn.pepple.vo.SystemSimpleInfoVO;
 import org.springframework.stereotype.Service;
@@ -49,4 +50,12 @@ public interface SystemStatisticService {
      * @return
      */
     public List<ServiceStatisticVO> getMonthSystemStatistic(String date,String sysName);
+
+    /**
+     * 判断是否有统计
+     * @param date
+     * @param sysName
+     * @return
+     */
+    public ResponseDto hasStatistic(String date,String sysName);
 }
