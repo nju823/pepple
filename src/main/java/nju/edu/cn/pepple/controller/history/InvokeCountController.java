@@ -1,6 +1,7 @@
 package nju.edu.cn.pepple.controller.history;
 
 import nju.edu.cn.pepple.service.history_statistic.InvokeCountService;
+import nju.edu.cn.pepple.vo.InvokeCountShowVO;
 import nju.edu.cn.pepple.vo.ServiceInvokeCountVO;
 import nju.edu.cn.pepple.vo.SystemInvokeCountVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,12 @@ public class InvokeCountController {
     @ResponseBody
     public List<ServiceInvokeCountVO> getTargetServiceCount(@PathVariable String serviceName,@PathVariable String date){
         return service.getTargetServiceCount(serviceName,date);
+    }
+
+    @RequestMapping("/count/system/{date}")
+    @ResponseBody
+    public InvokeCountShowVO getSystemCount(@PathVariable String date){
+        return service.getSystemCount(date);
     }
 
 }

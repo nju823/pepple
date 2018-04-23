@@ -27,6 +27,10 @@
     SELECT * FROM system_invoke_count_day WHERE source_system=#{source} AND `invoke_date`=#{date}
   </select>
 
+  <select id="getSystemInvokeCount" resultMap="BaseResultMap">
+    SELECT * FROM system_invoke_count_day WHERE `invoke_date`=#{date}
+  </select>
+
   <insert id="insertSelective" parameterType="nju.edu.cn.pepple.vo.SystemInvokeCountVO">
     insert into system_invoke_count_day
     <trim prefix="(" suffix=")" suffixOverrides=",">

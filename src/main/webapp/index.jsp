@@ -20,6 +20,7 @@
     <script src="js/history.js"></script>
     <script src="js/history_system_statistic.js"></script>
     <script src="js/history_service_statistic.js"></script>
+    <script src="js/history_invoke.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.0.4/echarts.min.js"></script>
     <title>登录</title>
 </head>

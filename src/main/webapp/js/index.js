@@ -35,4 +35,10 @@ $(document).ready(function(){
             showAllSystemHistory();
         });
     });
+
+    $(document).on("click","#system-invoke",function () {
+        $(".right-body").load("history_invoke.jsp",function(){
+            showInvoke(yesteday())
+        });
+    });
 });

@@ -13,4 +13,6 @@ public interface SystemInvokeCountDayMapper {
     List<SystemInvokeCountVO> getInvokeSystemCount(@Param("target") String target,@Param("date") String date);
 
     List<SystemInvokeCountVO> getTargetSystemCount(@Param("source") String source,@Param("date") String date);
+
+    List<SystemInvokeCountVO> getSystemInvokeCount(@Param("date") String date);
 }
