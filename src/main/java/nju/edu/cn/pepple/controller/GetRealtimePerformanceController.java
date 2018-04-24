@@ -29,7 +29,7 @@ public class GetRealtimePerformanceController {
     @ResponseBody
     public ResponseDto getSystemDayPerformanceByName(@Valid String systemName){ return realtimePerformanceService.getSystemDayPerformacneBySystemName(systemName); }
 
-    @RequestMapping(value = "/getServiceDayPerformanceBySystemName")
+    @RequestMapping(value = "/getServiceDayPerformanceByServiceName")
     @ResponseBody
     public ResponseDto getServiceDayPerformanceByName(@Valid String serviceName){return realtimePerformanceService.getServiceDayPerformanceByServiceName(serviceName);}
 }

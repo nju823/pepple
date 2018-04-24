@@ -30,7 +30,7 @@ function loadServicePerformanceBySystemName(systemName) {
 
     var systemDayPerformance = [];
     var serviceMinutePerformances = [];
-    submitRequest("GET","getSystemDayPerformanceBySystemName?serviceName="+systemName,"",false,
+    submitRequest("GET","getSystemDayPerformanceBySystemName?systemName="+systemName,"",false,
         function (msg) {
             systemDayPerformance = msg.content;
             var x_time = [];
@@ -99,7 +99,7 @@ function loadServicePerformanceBySystemName(systemName) {
 
         });
 
-    submitRequest("GET","getServiceMinutePerformanceBySystemName?serviceName="+systemName,"",false,
+    submitRequest("GET","getServiceMinutePerformanceBySystemName?systemName="+systemName,"",false,
         function (msg) {
             serviceMinutePerformances = msg.content;
         },function () {
