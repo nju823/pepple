@@ -41,4 +41,14 @@ $(document).ready(function(){
             showInvoke(yesteday())
         });
     });
+
+    $(document).on("click","#chain",function () {
+        $(".right-body").load("history_service_chain.jsp",function(){
+            $('.some_class').datetimepicker({
+                timepicker:false,
+                lang:"ch",
+                format:"Y-m-d"
+            });
+        });
+    });
 });

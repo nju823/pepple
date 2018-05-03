@@ -44,7 +44,7 @@
                         <li class="child" id="system-invoke">
                             <span>调用关系分析</span>
                         </li>
-                        <li class="child" id="train">
+                        <li class="child" id="chain">
                             <span>调用链分析</span>
                         </li>
                     </ul>

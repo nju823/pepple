@@ -15,6 +15,11 @@
     <result column="slow_count" jdbcType="INTEGER" property="slowCount" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
+
+  <select id="getChainStatistic" resultMap="BaseResultMap">
+    SELECT * FROM service_chain_statistic_day WHERE root_service=#{root} AND date=#{date}
+  </select>
+
   <insert id="insert" parameterType="nju.edu.cn.pepple.vo.ServiceChainStatisticVO">
     insert into service_chain_statistic_day (id, service, root_service, 
       parent_service, date, target, 
